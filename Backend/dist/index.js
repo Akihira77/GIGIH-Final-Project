@@ -1,23 +1,32 @@
 import express from "express";
 import "dotenv/config";
-import mongoose from "mongoose";
-const app = express();
-const connectMongoDB = async (env) => {
-    const MONGO_URI = env === "dev" ? process.env.MONGO_URI_DEV : process.env.MONGO_URI_PROD;
-    try {
-        await mongoose.connect(MONGO_URI);
-        console.log("DB Connected");
-    }
-    catch (error) {
-        console.log("Unable to connect", error);
-        process.exit();
-    }
-};
+import userRoutes from "./routes/user.routes.js";
+import videoRoutes from "./routes/video.routes.js";
+import productRoutes from "./routes/product.routes.js";
+import morgan from "morgan";
+import cors from "cors";
+import compression from "compression";
+import { connectMongoDB } from "./data/db.js";
+const ENV = process.argv[2] == "prod" ? "prod" : "dev";
 const startServer = () => {
+    const app = express();
+    //TODO Middleware
+    //! PRODUCTION
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: false }));
+    app.use(cors());
+    app.use(compression());
+    //! DEVELOPMENT
+    if (ENV == "dev") {
+        app.use(morgan("dev"));
+    }
+    //TODO Routes
+    app.use("/api/users", userRoutes);
+    app.use("/api/videos", videoRoutes);
+    app.use("/api/products", productRoutes);
     const PORT = Number(process.env.SERVER_PORT);
     app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT} and Mongo ${ENV}`);
+        console.log(`Server is running on port ${PORT} in ${ENV} environment`);
     });
 };
-const ENV = process.argv[2] || "dev";
 connectMongoDB(ENV).then(() => startServer());

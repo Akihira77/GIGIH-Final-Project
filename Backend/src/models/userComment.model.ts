@@ -1,4 +1,4 @@
-import mongoose, { model, Document, Schema } from "mongoose";
+import { model, Document, Schema } from "mongoose";
 import ProductModel from "./product.model.js";
 
 interface IUserComment extends Document {

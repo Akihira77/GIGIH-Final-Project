@@ -2,7 +2,9 @@ import React from "react";
 import Thumbnail from "../Card/Thumbnail";
 import { Container } from "./BodyStyled";
 
-type Props = {};
+type Props = {
+  thumbnails: any[];
+};
 
 const ThumbnailArray = [
   { id: 1, title: "abc" },
@@ -17,11 +19,29 @@ const ThumbnailArray = [
   { id: 10, title: "abc" },
 ];
 
-const Body = (props: Props) => {
+const Body = ({ thumbnails }: Props) => {
+  console.log(thumbnails);
   return (
     <Container>
-      {ThumbnailArray.map((thumbnail) => {
-        return <Thumbnail key={thumbnail.id} title={thumbnail.title} />;
+      {thumbnails.map((thumbnail) => {
+        return (
+          <Thumbnail
+            key={thumbnail.thumbnailId}
+            urlImage={thumbnail.urlImage[0]}
+            product={thumbnail.product}
+            seller={thumbnail.product.title}
+          />
+        );
+      })}
+      {thumbnails.map((thumbnail) => {
+        return (
+          <Thumbnail
+            key={thumbnail.thumbnailId}
+            urlImage={thumbnail.urlImage[0]}
+            product={thumbnail.product}
+            seller={thumbnail.product.title}
+          />
+        );
       })}
     </Container>
   );

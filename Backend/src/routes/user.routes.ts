@@ -11,6 +11,7 @@ userRoutes.get("/:id", validateIdRequest("id"), userController.getById);
 userRoutes.post("/", userController.create);
 userRoutes.delete("/:id", validateIdRequest("id"), userController.remove);
 userRoutes.put("/:id", validateIdRequest("id"), userController.update);
+userRoutes.post("/login", userController.login);
 
 userRoutes.get("/comments/get-all", userController.getAllUserComments);
 userRoutes.get(

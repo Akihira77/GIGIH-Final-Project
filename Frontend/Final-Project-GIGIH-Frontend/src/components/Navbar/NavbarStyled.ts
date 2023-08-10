@@ -17,16 +17,24 @@ export const Container = styled.div`
     &:hover {
       cursor: pointer;
     }
-    &:active {
+    &:active,
+    &.now {
       color: rgb(4, 228, 19);
       background-color: rgba(46, 135, 40, 0.18);
       border: 1px solid #00aa5b;
     }
   }
-  .search {
+  .left__navbar {
     display: flex;
     align-items: center;
     font-size: 1.5rem;
     padding-right: 2rem;
+
+    .profile {
+      padding-left: 1rem;
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 `;

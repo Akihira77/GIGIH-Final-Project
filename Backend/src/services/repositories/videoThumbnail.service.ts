@@ -13,6 +13,12 @@ class VideoThumbnailService extends BaseService {
   getByVideoId = async (videoId: string) => {
     return await this._model.findOne({ videoId: videoId });
   };
+
+  getThumbnailsAndProduct = async () => {
+    return await this._model
+      .find()
+      .populate([{ path: "videoId", select: "url productId" }]);
+  };
 }
 
 export default new VideoThumbnailService(VideoThumbnailModel);

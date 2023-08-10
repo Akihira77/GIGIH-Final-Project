@@ -1,6 +1,9 @@
 import { Request, Response } from "express";
 import videoService from "../services/repositories/video.service.js";
-import { thumbnailMap, videoMap } from "../services/mappings/video.mapping.js";
+import {
+  thumbnailVideoProductMap,
+  videoMap,
+} from "../services/mappings/video.mapping.js";
 import { VideoDocument } from "../models/video.model.js";
 import videoThumbnailService from "../services/repositories/videoThumbnail.service.js";
 import { VideoThumbnailDTO } from "../models/videoThumbnail.model.js";
@@ -37,11 +40,11 @@ export const create = async (
 
 export const getAllThumbnail = async (req: Request, res: Response) => {
   try {
-    const thumbnails = await videoThumbnailService.getAll();
+    const thumbnails = await videoThumbnailService.getThumbnailsAndProduct();
+    const products = await videoService.getAll("productId");
 
-    return res
-      .status(200)
-      .send({ data: { thumbnails: await thumbnailMap(thumbnails) } });
+    const result = await thumbnailVideoProductMap(thumbnails, products);
+    return res.status(200).send({ data: result });
   } catch (error) {
     console.log(error);
     return res

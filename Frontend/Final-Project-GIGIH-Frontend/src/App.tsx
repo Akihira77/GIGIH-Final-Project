@@ -1,16 +1,28 @@
-import { useState } from "react";
-import Navbar from "./components/Navbar/Navbar";
-import Body from "./components/Body/Body";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import NavbarContainer from "./components/Navbar/NavbarContainer";
+import { getCookie } from "./utils/cookie";
+import { useStateProvider } from "./utils/StateProvider";
+import { reducerCases } from "./utils/constant";
+import BodyContainer from "./components/Body/BodyContainer";
+import Video from "./components/Video/Video";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [{ user }, dispatch] = useStateProvider();
+  const userName = getCookie("user");
 
+  useEffect(() => {
+    dispatch({
+      type: reducerCases.SET_USER,
+      user: userName == "" ? userName : null,
+    });
+  }, [dispatch, userName]);
   return (
     <>
-      <Navbar />
+      <NavbarContainer />
       <Routes>
-        <Route path="/" element={<Body />} />
+        <Route path="/" element={<BodyContainer />} />
+        <Route path="video/:productId" element={<Video />} />
       </Routes>
     </>
   );

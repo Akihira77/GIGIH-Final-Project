@@ -163,3 +163,23 @@ export const getAllUserComments = async (req: Request, res: Response) => {
       .send({ message: "something has happend", error: error });
   }
 };
+
+export const login = async (
+  req: Request<{}, {}, { username: string; password: string }>,
+  res: Response
+) => {
+  try {
+    const { username, password } = req.body;
+    const result = await userService.login(username, password);
+    if (result == null) {
+      return res.status(404).send({ message: "User does not exists" });
+    }
+
+    return res.status(200).send({ message: `welcome ${username}` });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(400)
+      .send({ message: "something has happend", error: error });
+  }
+};

@@ -3,7 +3,7 @@ import VideoModel from "./video.model.js";
 
 interface IVideoThumbnail extends Document {
   videoId: Schema.Types.ObjectId;
-  urlImage: string[];
+  urlImage: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -23,7 +23,7 @@ export type VideoThumbnailProductDTO = {
 
 const VideoThumbnailSchema = new Schema<IVideoThumbnail>({
   videoId: { type: Schema.Types.ObjectId, required: true, ref: VideoModel },
-  urlImage: [{ type: String, required: true }],
+  urlImage: { type: String, required: true },
 });
 
 const VideoThumbnailModel = model<IVideoThumbnail>(

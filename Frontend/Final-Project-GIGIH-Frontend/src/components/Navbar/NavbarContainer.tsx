@@ -3,13 +3,14 @@ import Navbar from "./Navbar";
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import { login } from "../../utils/fetchApi";
 import { useStateProvider } from "../../utils/StateProvider";
-import { expiresOneHour, reducerCases } from "../../utils/constant";
+import { expiresOneHour } from "../../utils/constant";
 import { getCookie } from "../../utils/cookie";
+import { Outlet } from "react-router-dom";
 
 type Props = {};
 
 const NavbarContainer = (props: Props) => {
-  const [{ user }, dispatch] = useStateProvider();
+  const user = getCookie("user") == "" ? null : getCookie("user");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -41,16 +42,19 @@ const NavbarContainer = (props: Props) => {
     onClose();
   };
   return (
-    <Navbar
-      isOpen={isOpen}
-      onClose={onClose}
-      onOpen={onOpen}
-      setUsername={setUsername}
-      setPassword={setPassword}
-      handleLogin={handleLogin}
-      user={user}
-      handleLogout={handleLogout}
-    />
+    <>
+      <Navbar
+        isOpen={isOpen}
+        onClose={onClose}
+        onOpen={onOpen}
+        setUsername={setUsername}
+        setPassword={setPassword}
+        handleLogin={handleLogin}
+        user={user}
+        handleLogout={handleLogout}
+      />
+      <Outlet />
+    </>
   );
 };
 

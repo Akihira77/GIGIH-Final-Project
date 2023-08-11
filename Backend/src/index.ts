@@ -7,6 +7,14 @@ import morgan from "morgan";
 import cors from "cors";
 import compression from "compression";
 import { connectMongoDB } from "./data/db.js";
+import expressFileUpload from "express-fileupload";
+import {
+  SeedDataComment,
+  SeedDataProduct,
+  SeedDataThumbnail,
+  SeedDataUser,
+  SeedDataVideo,
+} from "./seed.js";
 
 const ENV = process.argv[2] == "prod" ? "prod" : "dev";
 
@@ -24,6 +32,11 @@ const startServer = () => {
     })
   );
   app.use(compression());
+  app.use(
+    expressFileUpload({
+      limits: { fileSize: 2 * 1024 * 1024 },
+    })
+  );
 
   //! DEVELOPMENT
   if (ENV == "dev") {
@@ -31,6 +44,16 @@ const startServer = () => {
   }
 
   //TODO Routes
+  app.post("/api/seed-data", async (req, res) => {
+    await SeedDataUser();
+    await SeedDataProduct();
+    await SeedDataVideo();
+    await SeedDataThumbnail();
+    await SeedDataComment();
+
+    return res.status(201).send({ message: "Seeding data success" });
+  });
+
   app.use("/api/users", userRoutes);
   app.use("/api/videos", videoRoutes);
   app.use("/api/products", productRoutes);

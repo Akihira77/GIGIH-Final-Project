@@ -22,6 +22,7 @@ export const thumbnailVideoProductMap = async (
       title: product.productId.title,
       price: product.productId.price,
       url: product.productId.url,
+      userId: product.productId.userId,
     };
   }
 

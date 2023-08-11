@@ -11,9 +11,18 @@ export const productMap = async (data: any[]): Promise<ProductDTO[]> => {
 export const videoProductMap = async (
   data: any[]
 ): Promise<VideoProductDTO[]> => {
-  const videoProductDtos: VideoProductDTO[] = data.map((e) => {
-    return { id: e._id, title: e.title, price: e.price, url: e.url };
-  });
+  const videoProductDtos: VideoProductDTO[] = data.map(
+    ({ id, title, price, url, userId, image }: VideoProductDTO) => {
+      return {
+        id: id,
+        title: title,
+        price: price,
+        url: url,
+        userId: userId,
+        image: image,
+      };
+    }
+  );
 
   return videoProductDtos;
 };

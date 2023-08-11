@@ -4,9 +4,11 @@ import {
   thumbnailVideoProductMap,
   videoMap,
 } from "../services/mappings/video.mapping.js";
-import { VideoDocument } from "../models/video.model.js";
+import { VideoDTO, VideoDocument } from "../models/video.model.js";
 import videoThumbnailService from "../services/repositories/videoThumbnail.service.js";
 import { VideoThumbnailDTO } from "../models/videoThumbnail.model.js";
+import { UploadedFile } from "express-fileupload";
+import { isSingleFile } from "../utils/file.js";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
@@ -26,7 +28,11 @@ export const create = async (
   res: Response
 ) => {
   try {
-    const result = await videoService.create(req.body);
+    const urls = req.body.url.split("/");
+    const url = `https://www.youtube.com/embed/${urls[urls.length - 1]}`;
+
+    const data: VideoDocument = { productId: req.body.productId, url: url };
+    const result = await videoService.create(data);
 
     await result.save();
     return res.status(201).send({ data: { video: result } });
@@ -54,15 +60,11 @@ export const getAllThumbnail = async (req: Request, res: Response) => {
 };
 
 export const addThumbnail = async (
-  req: Request<{ videoId: string }, {}, { urlImage: string }>,
+  req: Request<{ videoId: string }, {}, { urlImage: string | null }>,
   res: Response
 ) => {
   try {
-    const thumbnail: unknown = await videoThumbnailService.getByVideoId(
-      req.params.videoId
-    );
-
-    if (thumbnail == null) {
+    if (req.body.urlImage !== null) {
       const savedThumbnail = await videoThumbnailService.create({
         videoId: req.params.videoId,
         urlImage: req.body.urlImage,
@@ -72,12 +74,22 @@ export const addThumbnail = async (
       return res.status(201).send({ data: { thumbnail: result } });
     }
 
-    const addedThumbnail = await videoThumbnailService.addThumbnail(
-      req.params.videoId,
-      req.body.urlImage
-    );
+    const files = req.files;
+    if (files != null) {
+      const images = files.image;
+      if (isSingleFile(images)) {
+        const buffer = images.data;
+        const savedThumbnail = await videoThumbnailService.create({
+          videoId: req.params.videoId,
+          urlImage: "data:image/jpeg;base64" + buffer.toString("base64"),
+        });
 
-    return res.status(200).send({ data: { thumbnails: addedThumbnail } });
+        const result: unknown = await savedThumbnail.save();
+        return res.status(201).send({ data: { thumbnail: result } });
+      }
+    }
+
+    return res.status(400).send({ message: "Image was not provided" });
   } catch (error) {
     console.log(error);
     return res
@@ -105,6 +117,31 @@ export const getThumbnailFromVideo = async (
     };
 
     return res.status(200).send({ data: { thumbnails: result } });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(400)
+      .send({ message: "Something has happend", error: error });
+  }
+};
+
+export const getVideoById = async (
+  req: Request<{ videoId: string }, {}, {}>,
+  res: Response
+) => {
+  try {
+    const video: VideoDTO = await videoService.getById(req.params.videoId);
+
+    if (!video.url.includes("embed")) {
+      const urls = video.url.split("/");
+      const embedUrl = `https://www.youtube.com/embed/${urls[urls.length - 1]}`;
+
+      return res
+        .status(200)
+        .send({ data: { productId: video.productId, url: embedUrl } });
+    }
+
+    return res.status(200).send({ data: { video } });
   } catch (error) {
     console.log(error);
     return res

@@ -12,6 +12,8 @@ videoRoutes.get(
   validatorIdRequest("videoId"),
   videoController.getThumbnailFromVideo
 );
+videoRoutes.get("/:videoId", videoController.getVideoById);
+
 videoRoutes.post("/", videoController.create);
 videoRoutes.post(
   "/thumbnails/:videoId",

@@ -1,28 +1,31 @@
-import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, createBrowserRouter } from "react-router-dom";
 import NavbarContainer from "./components/Navbar/NavbarContainer";
-import { getCookie } from "./utils/cookie";
-import { useStateProvider } from "./utils/StateProvider";
-import { reducerCases } from "./utils/constant";
 import BodyContainer from "./components/Body/BodyContainer";
 import Video from "./components/Video/Video";
+import { getProductsFromVideo } from "./utils/fetchApi";
 
 function App() {
-  const [{ user }, dispatch] = useStateProvider();
-  const userName = getCookie("user");
-
-  useEffect(() => {
-    dispatch({
-      type: reducerCases.SET_USER,
-      user: userName == "" ? userName : null,
-    });
-  }, [dispatch, userName]);
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <BodyContainer />,
+    },
+    {
+      path: "video/:videoId",
+      element: <Video />,
+      loader: async ({ params }) => {
+        return getProductsFromVideo(params.videoId);
+      },
+    },
+  ]);
   return (
     <>
-      <NavbarContainer />
+      {/* <RouterProvider router={}/> */}
       <Routes>
-        <Route path="/" element={<BodyContainer />} />
-        <Route path="video/:productId" element={<Video />} />
+        <Route path="/play" element={<NavbarContainer />}>
+          <Route path="" element={<BodyContainer />} />
+        </Route>
+        <Route path="/video/:videoId" element={<Video />} />
       </Routes>
     </>
   );

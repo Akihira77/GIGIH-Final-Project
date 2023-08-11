@@ -1,15 +1,4 @@
-import {
-  Button,
-  ButtonGroup,
-  CardBody,
-  CardFooter,
-  Divider,
-  Heading,
-  Stack,
-  Card,
-  Text,
-  Image,
-} from "@chakra-ui/react";
+import { CardBody, CardFooter, Card, Text, Image } from "@chakra-ui/react";
 import React from "react";
 import { Container } from "./ThumbnailStyled";
 import { useNavigate } from "react-router-dom";
@@ -18,9 +7,10 @@ type Props = {
   urlImage: string;
   product: any;
   seller: string;
+  videoId: string;
 };
 
-const Thumbnail = ({ urlImage, product, seller }: Props) => {
+const Thumbnail = ({ urlImage, product, seller, videoId }: Props) => {
   const navigate = useNavigate();
 
   const goToDetail = (id: string) => {
@@ -28,7 +18,7 @@ const Thumbnail = ({ urlImage, product, seller }: Props) => {
   };
   return (
     <Container>
-      <Card maxW="sm" onClick={() => goToDetail(product.productId)}>
+      <Card maxW="sm" onClick={() => goToDetail(videoId)}>
         <CardBody>
           <Image src={urlImage} borderRadius="lg" className="card__image" />
         </CardBody>

@@ -9,6 +9,7 @@ import videoThumbnailService from "../services/repositories/videoThumbnail.servi
 import { VideoThumbnailDTO } from "../models/videoThumbnail.model.js";
 import { UploadedFile } from "express-fileupload";
 import { isSingleFile } from "../utils/file.js";
+import productService from "../services/repositories/product.service.js";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
@@ -28,9 +29,11 @@ export const create = async (
   res: Response
 ) => {
   try {
-    const urls = req.body.url.split("/");
-    const url = `https://www.youtube.com/embed/${urls[urls.length - 1]}`;
+    const urlRequest = req.body.url;
+    const videoYtId =
+      ytUrlCopyLink(urlRequest) ?? ytUrlEmbedOrSharedLink(urlRequest);
 
+    const url = `https://www.youtube.com/embed/${videoYtId}`;
     const data: VideoDocument = { productId: req.body.productId, url: url };
     const result = await videoService.create(data);
 
@@ -130,22 +133,44 @@ export const getVideoById = async (
   res: Response
 ) => {
   try {
-    const video: VideoDTO = await videoService.getById(req.params.videoId);
+    let { url, productId }: VideoDTO = await videoService.getById(
+      req.params.videoId
+    );
+    const product = await productService.getById(productId);
 
-    if (!video.url.includes("embed")) {
-      const urls = video.url.split("/");
-      const embedUrl = `https://www.youtube.com/embed/${urls[urls.length - 1]}`;
+    url = ytUrlCopyLink(url) ?? ytUrlEmbedOrSharedLink(url);
+    url = `https://www.youtube.com/embed/${url}`;
 
-      return res
-        .status(200)
-        .send({ data: { productId: video.productId, url: embedUrl } });
-    }
-
-    return res.status(200).send({ data: { video } });
+    return res.status(200).send({
+      data: { productId: productId, url: url, userId: product.userId },
+    });
   } catch (error) {
     console.log(error);
     return res
       .status(400)
       .send({ message: "Something has happend", error: error });
   }
+};
+
+const ytUrlCopyLink = (urlRequest: string) => {
+  let videoYtId = null;
+  const find = "watch?v=";
+  if (urlRequest.includes(find)) {
+    const start = urlRequest.indexOf(find);
+    const end = urlRequest.indexOf("&");
+    // console.log(urlRequest, start, end);
+    videoYtId = urlRequest.substring(
+      start + find.length,
+      end === -1 ? urlRequest.length : end
+    );
+
+    // console.log(videoYtId);
+  }
+
+  return videoYtId;
+};
+
+const ytUrlEmbedOrSharedLink = (urlRequest: string) => {
+  const urls = urlRequest.split("/");
+  return urls[urls.length - 1];
 };

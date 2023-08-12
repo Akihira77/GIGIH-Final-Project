@@ -20,10 +20,11 @@ const CommentList = ({ videoId }: Props) => {
   }, [videoId]);
   return (
     <CommentListContainer>
+      <h3>User Comment</h3>
       {userComments &&
-        userComments.map(({ username, comment }) => {
+        userComments.map(({ username, comment }, index) => {
           return (
-            <div className="comment">
+            <div className="comment" key={index}>
               <h4>{username}</h4>
               <br />
               <p>{comment}</p>

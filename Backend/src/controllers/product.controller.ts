@@ -82,3 +82,19 @@ export const getAllByVideoId = async (
     return res.status(400).send({ error });
   }
 };
+
+export const getAllByUserId = async (
+  req: Request<{ userId: string }, {}, {}>,
+  res: Response
+) => {
+  try {
+    const products = await productService.getAllByUserId(req.params.userId);
+
+    return res
+      .status(200)
+      .send({ data: { products: await productMap(products) } });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).send({ error });
+  }
+};

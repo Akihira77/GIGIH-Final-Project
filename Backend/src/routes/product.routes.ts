@@ -12,6 +12,11 @@ productRoutes.get(
   validateIdRequest("videoId"),
   productController.getAllByVideoId
 );
+productRoutes.get(
+  "/get-products-by-user/:userId",
+  validateIdRequest("userId"),
+  productController.getAllByUserId
+);
 productRoutes.post("/", productController.create);
 
 export default productRoutes;

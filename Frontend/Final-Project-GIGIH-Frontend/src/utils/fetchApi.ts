@@ -98,3 +98,40 @@ export const getVideoComments = async (
     return response;
   }
 };
+
+export const getUserProducts = async (userId: string): Promise<ApiResponse> => {
+  const response: ApiResponse = { axiosResponse: null, error: null };
+  try {
+    const result = await axios.get(
+      `${API_URL}/products/get-products-by-user/${userId}`
+    );
+    response.axiosResponse = result;
+
+    return response;
+  } catch (error) {
+    response.error = "Something has happend";
+
+    return response;
+  }
+};
+
+export const submitComment = async (
+  username: string,
+  comment: string,
+  videoId: string
+): Promise<ApiResponse> => {
+  const response: ApiResponse = { axiosResponse: null, error: null };
+  try {
+    const result = await axios.post(
+      `${API_URL}/users/comments/submit-comment/${videoId}`,
+      { username, comment }
+    );
+    response.axiosResponse = result;
+
+    return response;
+  } catch (error) {
+    response.error = "Something has happend";
+
+    return response;
+  }
+};

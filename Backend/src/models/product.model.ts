@@ -15,7 +15,7 @@ export type ProductDocument = Pick<
   IProduct,
   "title" | "price" | "url" | "userId" | "image"
 >;
-export type ProductDTO = Pick<IProduct, "title" | "price" | "url">;
+export type ProductDTO = Pick<IProduct, "title" | "price" | "url" | "image">;
 export type VideoProductDTO = Pick<
   IProduct,
   "id" | "title" | "price" | "url" | "userId" | "image"

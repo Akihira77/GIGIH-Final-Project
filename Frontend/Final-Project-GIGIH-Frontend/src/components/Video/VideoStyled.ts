@@ -1,9 +1,22 @@
 import styled from "styled-components";
 
 export const ProductListContainer = styled.div`
+  max-height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 1rem;
+  padding: 2rem 0;
+  &::-webkit-scrollbar {
+    width: 0.7rem;
+    &-thumb {
+      background-color: rgba(255, 255, 255, 0.6);
+    }
+  }
   .chakra-card {
     width: 60%;
-    margin: 1rem auto 0;
+    margin: 0 auto;
     height: 250px;
     cursor: pointer;
   }
@@ -45,11 +58,14 @@ export const YourProfileContainer = styled.div`
 `;
 
 export const CommentListContainer = styled.div`
-  padding: 0.5rem;
+  padding: 1rem 0.5rem;
   max-height: 100%;
   overflow: auto;
   display: flex;
   flex-direction: column;
+  h3 {
+    text-align: center;
+  }
   gap: 1rem;
   &::-webkit-scrollbar {
     width: 0.7rem;

@@ -86,12 +86,21 @@ export const SeedDataVideo = async () => {
   const products = await ProductModel.find();
 
   const data: VideoDocument[] = [
-    { productId: products[0].id, url: "https://youtu.be/hKRUPYrAQoE" },
+    {
+      productId: products[0].id,
+      url: "https://www.youtube.com/watch?v=IcvWGB5EqbA",
+    },
     { productId: products[1].id, url: "https://youtu.be/_oOtUsfqo0w" },
     { productId: products[2].id, url: "https://youtu.be/n1a7o44WxNo" },
-    { productId: products[3].id, url: "https://youtu.be/_oOtUsfqo0w" },
+    {
+      productId: products[3].id,
+      url: "https://www.youtube.com/embed/3Kxf2dHlDpQ",
+    },
     { productId: products[4].id, url: "https://youtu.be/hKRUPYrAQoE" },
-    { productId: products[5].id, url: "https://youtu.be/_oOtUsfqo0w" },
+    {
+      productId: products[5].id,
+      url: "https://www.youtube.com/watch?v=3Kxf2dHlDpQ&list=RDXbxNtPiCBK8&index=3&pp=8AUB",
+    },
     { productId: products[6].id, url: "https://youtu.be/hKRUPYrAQoE" },
   ];
 

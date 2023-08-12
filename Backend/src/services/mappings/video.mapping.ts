@@ -52,7 +52,7 @@ export const thumbnailMap = async (
 
 export const videoMap = async (data: any[]): Promise<VideoDTO[]> => {
   const videoDtos: VideoDTO[] = data.map((e) => {
-    return { productId: e.productId, url: e.url };
+    return { productId: e.productId, url: e.url, userId: e.userId };
   });
 
   return videoDtos;

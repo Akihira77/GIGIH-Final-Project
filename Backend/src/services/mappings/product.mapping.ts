@@ -1,8 +1,8 @@
 import { ProductDTO, VideoProductDTO } from "../../models/product.model.js";
 
 export const productMap = async (data: any[]): Promise<ProductDTO[]> => {
-  const productDtos: ProductDTO[] = data.map((e) => {
-    return { title: e.title, price: e.price, url: e.url };
+  const productDtos: ProductDTO[] = data.map(({ title, price, url, image }) => {
+    return { title, price, url, image };
   });
 
   return productDtos;

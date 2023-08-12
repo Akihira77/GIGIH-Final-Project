@@ -1,24 +1,10 @@
-import React, { useEffect, useState } from "react";
 import { MainVideoContainer } from "./VideoStyled";
-import { getVideoById } from "../../utils/fetchApi";
 
 type Props = {
-  videoId: string;
+  video: string;
 };
 
-const MainVideo = ({ videoId }: Props) => {
-  const [video, setVideo] = useState();
-  useEffect(() => {
-    const getVideo = async () => {
-      const { axiosResponse } = await getVideoById(videoId);
-
-      console.log(axiosResponse);
-      setVideo(axiosResponse?.data.data.url);
-    };
-    getVideo();
-  }, [videoId]);
-
-  console.log(video);
+const MainVideo = ({ video }: Props) => {
   return (
     <MainVideoContainer>
       <div className="youtube__video">

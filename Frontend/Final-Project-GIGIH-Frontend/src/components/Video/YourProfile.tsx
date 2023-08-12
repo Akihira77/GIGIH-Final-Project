@@ -1,18 +1,28 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { YourProfileContainer } from "./VideoStyled";
-import {
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Textarea,
-} from "@chakra-ui/react";
+import { Button, FormControl, FormLabel, Textarea } from "@chakra-ui/react";
 import { getCookie } from "../../utils/cookie";
+import { submitComment } from "../../utils/fetchApi";
 
-type Props = {};
+type Props = {
+  videoId: string;
+};
 
-const YourProfile = (props: Props) => {
+const YourProfile = ({ videoId }: Props) => {
   const userName = getCookie("user");
+  const [commentText, setCommentText] = useState<string | null>(null);
+
+  const handleSubmit = async () => {
+    const { axiosResponse } = await submitComment(
+      userName,
+      commentText!,
+      videoId
+    );
+
+    console.log(axiosResponse?.data.data);
+    setCommentText(null);
+  };
+
   return userName === undefined ? (
     <p>Login First</p>
   ) : (
@@ -20,8 +30,13 @@ const YourProfile = (props: Props) => {
       <FormControl>
         <FormLabel>{userName}</FormLabel>
         <div className="form">
-          <Textarea resize="none" placeholder="Types your comment..." />
-          <Button className="submit" onClick={() => console.log("")}>
+          <Textarea
+            resize="none"
+            placeholder="Types your comment..."
+            value={commentText ?? ""}
+            onChange={(e) => setCommentText(e.target.value)}
+          />
+          <Button className="submit" onClick={handleSubmit}>
             Submit
           </Button>
         </div>

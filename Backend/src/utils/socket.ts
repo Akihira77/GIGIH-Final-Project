@@ -7,10 +7,10 @@ export const startSocket = (server: any, corsOptions: any) => {
   });
 
   io.on("connection", (socket) => {
-    console.log(`User connected ${socket.id}`);
+    // console.log(`User connected ${socket.id}`);
 
     socket.on("join_room", (room) => {
-      socket.join(room);
+      // socket.join(room);
       console.log(`User ${socket.id} joined room ${room}`);
     });
 
@@ -28,11 +28,11 @@ export const startSocket = (server: any, corsOptions: any) => {
 
     socket.on("leave_room", (room) => {
       socket.leave(room);
-      console.log(`User ${socket.id} leave room ${room}`);
+      // console.log(`User ${socket.id} leave room ${room}`);
     });
 
     socket.on("disconnect", () => {
-      console.log("User Disconnected", socket.id);
+      // console.log("User Disconnected", socket.id);
     });
   });
 };

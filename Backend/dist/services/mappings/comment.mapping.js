@@ -4,7 +4,6 @@ const commentMapping = async (data) => {
             username: e.username,
             comment: e.comment,
             createdAt: e.createdAt,
-            updatedAt: e.updatedAt,
         };
     });
     return userCommentDtos;

@@ -89,12 +89,12 @@ export const submitComment = async (req, res) => {
             return res.status(404).send({ message: "User does not exists" });
         }
         const result = await userCommentService.submitComment({
-            productId: video.productId,
+            videoId: video.id,
             username: req.body.username,
             comment: req.body.comment,
         });
         await result.save();
-        return res.status(200).send({ data: { userComments: result } });
+        return res.status(201).send({ data: { userComments: result } });
     }
     catch (error) {
         console.log(error);
@@ -109,7 +109,7 @@ export const getAllByVideoId = async (req, res) => {
         if (video == null) {
             return res.status(404).send({ message: "Video does not exists" });
         }
-        const comments = await userCommentService.getAllByProductId(video.productId);
+        const comments = await userCommentService.getAllByVideoId(video.id);
         return res
             .status(200)
             .send({ data: { userComments: await commentMapping(comments) } });
@@ -127,6 +127,22 @@ export const getAllUserComments = async (req, res) => {
         return res
             .status(200)
             .send({ data: { userComments: await commentMapping(results) } });
+    }
+    catch (error) {
+        console.log(error);
+        return res
+            .status(400)
+            .send({ message: "something has happend", error: error });
+    }
+};
+export const login = async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const result = await userService.login(username, password);
+        if (result == null) {
+            return res.status(404).send({ message: "User does not exists" });
+        }
+        return res.status(200).send({ message: `welcome ${username}` });
     }
     catch (error) {
         console.log(error);

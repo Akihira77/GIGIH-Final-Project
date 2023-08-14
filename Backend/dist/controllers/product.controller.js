@@ -1,6 +1,8 @@
 import productService from "../services/repositories/product.service.js";
 import { productMap, videoProductMap, } from "../services/mappings/product.mapping.js";
 import videoService from "../services/repositories/video.service.js";
+import userService from "../services/repositories/user.service.js";
+import { isSingleFile } from "../utils/file.js";
 export const getAll = async (req, res) => {
     try {
         const results = await productService.getAll();
@@ -15,9 +17,32 @@ export const getAll = async (req, res) => {
 };
 export const create = async (req, res) => {
     try {
-        const result = await productService.create(req.body);
-        await result.save();
-        return res.status(201).send({ data: { product: result } });
+        const { price, title, url, userId, image } = req.body;
+        const user = await userService.getById(req.body.userId);
+        if (user == null) {
+            return res.status(404).send({ message: "User does not exists" });
+        }
+        if (image != undefined) {
+            const result = await productService.create(req.body);
+            await result.save();
+            return res.status(201).send({ data: { product: result } });
+        }
+        const files = req.files;
+        if (files != null) {
+            const images = files.image;
+            if (isSingleFile(images)) {
+                const buffer = images.data;
+                const savedThumbnail = await productService.create({
+                    title: title,
+                    url: url,
+                    price: price,
+                    userId: userId,
+                    urlImage: "data:image/jpeg;base64" + buffer.toString("base64"),
+                });
+                const result = await savedThumbnail.save();
+                return res.status(201).send({ data: { thumbnail: result } });
+            }
+        }
     }
     catch (error) {
         console.log(error);
@@ -34,6 +59,18 @@ export const getAllByVideoId = async (req, res) => {
         return res
             .status(200)
             .send({ data: { products: await videoProductMap(products) } });
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(400).send({ error });
+    }
+};
+export const getAllByUserId = async (req, res) => {
+    try {
+        const products = await productService.getAllByUserId(req.params.userId);
+        return res
+            .status(200)
+            .send({ data: { products: await productMap(products) } });
     }
     catch (error) {
         console.log(error);

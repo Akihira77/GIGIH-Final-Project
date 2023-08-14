@@ -9,5 +9,11 @@ class UserService extends BaseService {
             $set: { password: password },
         }, { returnDocument: "after" });
     };
+    login = async (username, password) => {
+        return await this._model.findOne({
+            username: username,
+            password: password,
+        });
+    };
 }
 export default new UserService(UserModel);

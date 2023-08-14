@@ -1,12 +1,19 @@
 export const productMap = async (data) => {
-    const productDtos = data.map((e) => {
-        return { title: e.title, price: e.price, url: e.url };
+    const productDtos = data.map(({ title, price, url, image }) => {
+        return { title, price, url, image };
     });
     return productDtos;
 };
 export const videoProductMap = async (data) => {
-    const videoProductDtos = data.map((e) => {
-        return { id: e._id, title: e.title, price: e.price, url: e.url };
+    const videoProductDtos = data.map(({ id, title, price, url, userId, image }) => {
+        return {
+            id: id,
+            title: title,
+            price: price,
+            url: url,
+            userId: userId,
+            image: image,
+        };
     });
     return videoProductDtos;
 };

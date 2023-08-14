@@ -1,11 +1,11 @@
 import { model, Schema } from "mongoose";
-import ProductModel from "./product.model.js";
+import VideoModel from "./video.model.js";
 const UserCommentSchema = new Schema({
     username: { type: String, required: true },
-    productId: {
+    videoId: {
         type: Schema.Types.ObjectId,
         required: true,
-        ref: ProductModel,
+        ref: VideoModel,
     },
     comment: { type: String },
 }, {

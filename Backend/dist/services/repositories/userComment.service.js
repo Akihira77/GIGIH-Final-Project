@@ -4,8 +4,8 @@ class UserCommentService extends BaseService {
     submitComment = async (input) => {
         return this._model.create(input);
     };
-    getAllByProductId = async (productId) => {
-        return this._model.find({ productId: productId });
+    getAllByVideoId = async (videoId) => {
+        return this._model.find({ videoId: videoId });
     };
 }
 export default new UserCommentService(UserCommentModel);

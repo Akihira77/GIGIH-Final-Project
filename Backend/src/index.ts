@@ -22,8 +22,9 @@ const ENV = process.argv[2] == "prod" ? "prod" : "dev";
 
 const startServer = () => {
   const app: Application = express();
+  const PORT: number = Number(process.env.SERVER_PORT);
   const corsOptions = {
-    origin: "http://localhost:5173",
+    origin: `http://localhost:5173`,
     methods: ["get", "post"],
   };
   //TODO Middleware
@@ -58,7 +59,6 @@ const startServer = () => {
   app.use("/api/videos", videoRoutes);
   app.use("/api/products", productRoutes);
 
-  const PORT: number = Number(process.env.SERVER_PORT);
   const server = app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT} in ${ENV} environment`);
   });

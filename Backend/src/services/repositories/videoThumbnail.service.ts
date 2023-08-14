@@ -19,6 +19,12 @@ class VideoThumbnailService extends BaseService {
       .find()
       .populate([{ path: "videoId", select: "url productId" }]);
   };
+
+  getVideoByThumbnailTitle = async (search: string) => {
+    return await this._model
+      .find({ videoName: new RegExp(search, "i") })
+      .populate([{ path: "videoId", select: "url productId" }]);
+  };
 }
 
 export default new VideoThumbnailService(VideoThumbnailModel);

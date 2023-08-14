@@ -16,21 +16,21 @@ import {
   SeedDataVideo,
 } from "./seed.js";
 
+import { startSocket } from "./utils/socket.js";
+
 const ENV = process.argv[2] == "prod" ? "prod" : "dev";
 
 const startServer = () => {
   const app: Application = express();
-
+  const corsOptions = {
+    origin: "http://localhost:5173",
+    methods: ["get", "post"],
+  };
   //TODO Middleware
   //! PRODUCTION
   app.use(express.json());
   app.use(express.urlencoded({ extended: false }));
-  app.use(
-    cors({
-      origin: "http://localhost:5173",
-      methods: ["get", "post"],
-    })
-  );
+  app.use(cors(corsOptions));
   app.use(compression());
   app.use(
     expressFileUpload({
@@ -59,9 +59,11 @@ const startServer = () => {
   app.use("/api/products", productRoutes);
 
   const PORT: number = Number(process.env.SERVER_PORT);
-  app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT} in ${ENV} environment`);
   });
+
+  startSocket(server, corsOptions);
 };
 
 connectMongoDB(ENV).then(() => startServer());

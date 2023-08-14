@@ -15,8 +15,8 @@ const Body = ({ thumbnails }: Props) => {
           <Thumbnail
             key={thumbnail.thumbnailId}
             urlImage={thumbnail.urlImage}
-            product={thumbnail.product}
-            seller={thumbnail.product.title}
+            title={thumbnail.videoName}
+            seller={thumbnail.user}
             videoId={thumbnail.videoId}
           />
         );

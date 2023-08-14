@@ -112,36 +112,43 @@ export const SeedDataThumbnail = async () => {
 
   const data: VideoThumbnailDocument[] = [
     {
+      videoName: "We are live",
       videoId: videos[0].id,
       urlImage:
         "https://upload.wikimedia.org/wikipedia/en/e/e9/First_Single_Volume_Edition_of_The_Lord_of_the_Rings.gif",
     },
     {
+      videoName: "Buruan diskon",
       videoId: videos[1].id,
       urlImage:
         "https://www.junkybooks.com/administrator/bookimages/647357233721b7.17593093.jpg",
     },
     {
+      videoName: "Ayo Buruan diskon",
       videoId: videos[2].id,
       urlImage:
         "https://www.junkybooks.com/administrator/bookimages/644599e3001414.84971677.jpg",
     },
     {
+      videoName: "Cuci gudang",
       videoId: videos[3].id,
       urlImage:
         "https://www.junkybooks.com/administrator/bookimages/644599e3001414.84971677.jpg",
     },
     {
+      videoName: "Ayo gaes murah meriah",
       videoId: videos[4].id,
       urlImage:
         "https://www.junkybooks.com/administrator/bookimages/644599e3001414.84971677.jpg",
     },
     {
+      videoName: "Beli 5 gratis 1",
       videoId: videos[5].id,
       urlImage:
         "https://www.junkybooks.com/administrator/bookimages/644599e3001414.84971677.jpg",
     },
     {
+      videoName: "Live ga ngapa-ngapain",
       videoId: videos[6].id,
       urlImage:
         "https://www.junkybooks.com/administrator/bookimages/644599e3001414.84971677.jpg",
@@ -152,110 +159,110 @@ export const SeedDataThumbnail = async () => {
 };
 
 export const SeedDataComment = async () => {
-  const products = await ProductModel.find();
+  const videos = await VideoModel.find();
 
   const data: UserCommentDocument[] = [
     //TODO product 0
     {
       username: "andikawa123@gmail.com",
-      productId: products[0].id,
+      videoId: videos[0].id,
       comment: "This book is very good",
     },
     {
       username: "andikawa123@gmail.com",
-      productId: products[0].id,
+      videoId: videos[0].id,
       comment: "yeah i like it",
     },
     {
       username: "andikawa123@gmail.com",
-      productId: products[0].id,
+      videoId: videos[0].id,
       comment: "woah what an amazing",
     },
 
     //TODO product 1
     {
       username: "dikawa123@gmail.com",
-      productId: products[1].id,
+      videoId: videos[1].id,
       comment: "This book is very good",
     },
     {
       username: "dikawa123@gmail.com",
-      productId: products[1].id,
+      videoId: videos[1].id,
       comment: "..okay",
     },
 
     //TODO product 2
     {
       username: "andikawa123@gmail.com",
-      productId: products[2].id,
+      videoId: videos[2].id,
       comment: "This book is very good",
     },
 
     //TODO product 3
     {
       username: "andikawa123@gmail.com",
-      productId: products[3].id,
+      videoId: videos[3].id,
       comment: "This book is very good",
     },
     {
       username: "andikawa123@gmail.com",
-      productId: products[3].id,
+      videoId: videos[3].id,
       comment: "hahahaha",
     },
     {
       username: "andikawa123@gmail.com",
-      productId: products[3].id,
+      videoId: videos[3].id,
       comment: "This book is very good",
     },
 
     //TODO product 4
     {
       username: "andikawa123@gmail.com",
-      productId: products[4].id,
+      videoId: videos[4].id,
       comment: "This book is very good",
     },
     {
       username: "andikawa123@gmail.com",
-      productId: products[4].id,
+      videoId: videos[4].id,
       comment: "hahahaha",
     },
     {
       username: "andikawa123@gmail.com",
-      productId: products[4].id,
+      videoId: videos[4].id,
       comment: "This book is very good",
     },
 
     //TODO product 5
     {
       username: "andikawa123@gmail.com",
-      productId: products[5].id,
+      videoId: videos[5].id,
       comment: "This book is very good",
     },
     {
       username: "andikawa123@gmail.com",
-      productId: products[5].id,
+      videoId: videos[5].id,
       comment: "hahahaha",
     },
     {
       username: "andikawa123@gmail.com",
-      productId: products[5].id,
+      videoId: videos[5].id,
       comment: "This book is very good",
     },
 
     //TODO product 6
     {
       username: "andikawa123@gmail.com",
-      productId: products[6].id,
+      videoId: videos[6].id,
       comment: "This book is very good",
     },
     {
       username: "andikawa123@gmail.com",
-      productId: products[6].id,
+      videoId: videos[6].id,
       comment: "hahahaha",
     },
     {
       username: "andikawa123@gmail.com",
-      productId: products[6].id,
+      videoId: videos[6].id,
       comment: "This book is very good",
     },
   ];

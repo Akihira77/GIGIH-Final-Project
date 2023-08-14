@@ -1,7 +1,3 @@
-import {
-  ProductDocument,
-  VideoProductDTO,
-} from "../../models/product.model.js";
 import { VideoDTO } from "../../models/video.model.js";
 import {
   VideoThumbnailDTO,
@@ -10,7 +6,8 @@ import {
 
 export const thumbnailVideoProductMap = async (
   thumbnails: any[],
-  products: any[]
+  products: any[],
+  users: any[]
 ): Promise<VideoThumbnailProductDTO[]> => {
   function productMap(products: any, videoId: any) {
     let product = products.find((product: any) => {
@@ -19,20 +16,20 @@ export const thumbnailVideoProductMap = async (
 
     return {
       productId: product.productId._id,
-      title: product.productId.title,
-      price: product.productId.price,
-      url: product.productId.url,
       userId: product.productId.userId,
     };
   }
 
   const videoThumbnailProductDtos = thumbnails.map(
-    ({ _id, videoId, urlImage }) => {
+    ({ _id, videoId, urlImage, videoName }) => {
+      const { userId } = productMap(products, videoId);
       return {
+        videoName: videoName,
         thumbnailId: _id,
         videoId: videoId._id,
         urlVideo: videoId.url,
         urlImage: urlImage,
+        user: users.find((user) => user.id == userId).username,
         product: productMap(products, videoId),
       };
     }
@@ -44,7 +41,7 @@ export const thumbnailMap = async (
   data: any[]
 ): Promise<VideoThumbnailDTO[]> => {
   const videoThumbnailDtos: VideoThumbnailDTO[] = data.map((e) => {
-    return { videoId: e.videoId, urlImage: e.urlImage };
+    return { videoId: e.videoId, urlImage: e.urlImage, videoName: e.videoName };
   });
 
   return videoThumbnailDtos;

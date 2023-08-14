@@ -1,9 +1,9 @@
 import { model, Document, Schema } from "mongoose";
-import ProductModel from "./product.model.js";
+import VideoModel from "./video.model.js";
 
 interface IUserComment extends Document {
   username: string;
-  productId: Schema.Types.ObjectId;
+  videoId: Schema.Types.ObjectId;
   comment: string;
   createdAt: Date;
   updatedAt: Date;
@@ -11,21 +11,21 @@ interface IUserComment extends Document {
 
 export type UserCommentDocument = Pick<
   IUserComment,
-  "username" | "productId" | "comment"
+  "username" | "videoId" | "comment"
 >;
 
 export type UserCommentDTO = Pick<
   IUserComment,
-  "username" | "comment" | "createdAt" | "updatedAt"
+  "username" | "comment" | "createdAt"
 >;
 
 const UserCommentSchema = new Schema<IUserComment>(
   {
     username: { type: String, required: true },
-    productId: {
+    videoId: {
       type: Schema.Types.ObjectId,
       required: true,
-      ref: ProductModel,
+      ref: VideoModel,
     },
     comment: { type: String },
   },

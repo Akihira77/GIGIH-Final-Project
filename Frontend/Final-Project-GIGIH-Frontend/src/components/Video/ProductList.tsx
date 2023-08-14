@@ -2,7 +2,7 @@ import { ProductListContainer } from "./VideoStyled";
 import { Card, CardBody, Image, Link } from "@chakra-ui/react";
 
 type Props = {
-  products: any;
+  products: any[];
 };
 
 const ProductList = ({ products }: Props) => {

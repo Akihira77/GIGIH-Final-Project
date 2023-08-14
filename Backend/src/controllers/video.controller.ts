@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import videoService from "../services/repositories/video.service.js";
 import {
+  thumbnailMap,
   thumbnailVideoProductMap,
   videoMap,
 } from "../services/mappings/video.mapping.js";
@@ -10,6 +11,7 @@ import { VideoThumbnailDTO } from "../models/videoThumbnail.model.js";
 import { UploadedFile } from "express-fileupload";
 import { isSingleFile } from "../utils/file.js";
 import productService from "../services/repositories/product.service.js";
+import userService from "../services/repositories/user.service.js";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
@@ -51,8 +53,9 @@ export const getAllThumbnail = async (req: Request, res: Response) => {
   try {
     const thumbnails = await videoThumbnailService.getThumbnailsAndProduct();
     const products = await videoService.getAll("productId");
+    const users = await userService.getAll();
 
-    const result = await thumbnailVideoProductMap(thumbnails, products);
+    const result = await thumbnailVideoProductMap(thumbnails, products, users);
     return res.status(200).send({ data: result });
   } catch (error) {
     console.log(error);
@@ -115,6 +118,7 @@ export const getThumbnailFromVideo = async (
     }
 
     const result: VideoThumbnailDTO = {
+      videoName: thumbnails.videoName,
       videoId: thumbnails.videoId,
       urlImage: thumbnails.urlImage,
     };
@@ -144,6 +148,29 @@ export const getVideoById = async (
     return res.status(200).send({
       data: { productId: productId, url: url, userId: product.userId },
     });
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(400)
+      .send({ message: "Something has happend", error: error });
+  }
+};
+
+export const searchVideos = async (
+  req: Request<{ searchText: string }, {}, {}>,
+  res: Response
+) => {
+  try {
+    // console.log(req.params.searchText);
+    const products = await videoService.getAll("productId");
+    const users = await userService.getAll();
+    const thumbnails = await videoThumbnailService.getVideoByThumbnailTitle(
+      req.params.searchText
+    );
+
+    const result = await thumbnailVideoProductMap(thumbnails, products, users);
+
+    return res.status(200).send({ data: result });
   } catch (error) {
     console.log(error);
     return res

@@ -17,6 +17,8 @@ import {
   ModalBody,
   FormLabel,
   FormControl,
+  Tag,
+  TagLabel,
 } from "@chakra-ui/react";
 import React from "react";
 import { Container } from "./NavbarStyled";
@@ -33,16 +35,19 @@ type Props = {
   handleLogin: () => Promise<void>;
   user: any;
   handleLogout: () => void;
+  searchText: string;
+  setSearchText: React.Dispatch<React.SetStateAction<string>>;
+  handleSearch: (e: React.KeyboardEvent<HTMLInputElement>) => Promise<void>;
 };
 
 const navbarArray = [
-  { id: 1, name: "All", url: "/" },
-  { id: 2, name: "Explore", url: "/" },
-  { id: 3, name: "Diskon Berkah", url: "/" },
-  { id: 4, name: "Offical Store", url: "/" },
-  { id: 5, name: "Tips & Rekomendasi", url: "/" },
-  { id: 6, name: "Terbaru", url: "/" },
-  { id: 7, name: "Upcoming", url: "/" },
+  { id: 1, name: "All", url: "/play" },
+  { id: 2, name: "Explore", url: "/play" },
+  { id: 3, name: "Diskon Berkah", url: "/play" },
+  { id: 4, name: "Offical Store", url: "/play" },
+  { id: 5, name: "Tips & Rekomendasi", url: "/play" },
+  { id: 6, name: "Terbaru", url: "/play" },
+  { id: 7, name: "Upcoming", url: "/play" },
 ];
 const Navbar = ({
   isOpen,
@@ -53,6 +58,9 @@ const Navbar = ({
   handleLogin,
   user,
   handleLogout,
+  searchText,
+  setSearchText,
+  handleSearch,
 }: Props) => {
   return (
     <Container>
@@ -81,14 +89,28 @@ const Navbar = ({
           <InputLeftElement pointerEvents="none">
             <FiSearch color="gray.300" />
           </InputLeftElement>
-          <Input type="text" placeholder="Search..." autoFocus />
+          <Input
+            type="text"
+            placeholder="Search..."
+            autoFocus
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            onKeyDown={(e) => handleSearch(e)}
+          />
         </InputGroup>
         <div className="profile" onClick={onOpen}>
           {user ? (
-            <Avatar
-              name={user.username}
-              src="https://static.vecteezy.com/system/resources/previews/002/002/403/original/man-with-beard-avatar-character-isolated-icon-free-vector.jpg"
-            />
+            <Tag height="40px">
+              <Avatar
+                name={user.username}
+                src="https://static.vecteezy.com/system/resources/previews/002/002/403/original/man-with-beard-avatar-character-isolated-icon-free-vector.jpg"
+                width="35px"
+                height="35px"
+                ml={-1}
+                mr={2}
+              />
+              <TagLabel>{user.substring(0, user.indexOf("@"))}</TagLabel>
+            </Tag>
           ) : (
             <Avatar
               name="user"

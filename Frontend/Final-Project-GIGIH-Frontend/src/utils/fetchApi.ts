@@ -135,3 +135,17 @@ export const submitComment = async (
     return response;
   }
 };
+
+export const searchVideo = async (searchText: string): Promise<ApiResponse> => {
+  const response: ApiResponse = { axiosResponse: null, error: null };
+  try {
+    const result = await axios.get(`${API_URL}/videos/search/${searchText}`);
+    response.axiosResponse = result;
+
+    return response;
+  } catch (error) {
+    response.error = "Something has happend";
+
+    return response;
+  }
+};

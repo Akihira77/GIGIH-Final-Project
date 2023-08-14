@@ -1,21 +1,37 @@
 import React, { useEffect, useState } from "react";
 import Body from "./Body";
-import { getVideos } from "../../utils/fetchApi";
+import { getVideos, searchVideo } from "../../utils/fetchApi";
+import { useSearchParams } from "react-router-dom";
 
-type Props = {};
+type Props = {
+  socket: any;
+};
 
-const BodyContainer = (props: Props) => {
+const BodyContainer = ({ socket }: Props) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchText = searchParams.get("searchText");
+
+  const room = window.sessionStorage.getItem("room");
   const [thumbnails, setThumbnails] = useState([]);
   useEffect(() => {
-    const getVid = async () => {
-      const { axiosResponse, error } = await getVideos();
-      const result = axiosResponse!.data.data;
-
+    if (room) {
+      socket.emit("leave_room", room);
+      window.sessionStorage.removeItem("room");
+    }
+    const getVid = async (text: string | null) => {
+      let result;
+      if (!text) {
+        const { axiosResponse } = await getVideos();
+        result = axiosResponse!.data.data;
+      } else {
+        const { axiosResponse } = await searchVideo(text);
+        result = axiosResponse!.data.data;
+      }
       setThumbnails(result);
     };
 
-    getVid();
-  }, []);
+    getVid(searchText);
+  }, [searchText]);
   return (
     <>
       <Body thumbnails={thumbnails} />

@@ -7,13 +7,15 @@ import validateIdRequest from "../middlewares/validateIdRequest.js";
 const userRoutes: Router = express();
 
 userRoutes.get("/", userController.getAll);
-userRoutes.get("/:id", validateIdRequest("id"), userController.getById);
+userRoutes.get("/comments/get-all", userController.getAllUserComments);
+
 userRoutes.post("/", userController.create);
-userRoutes.delete("/:id", validateIdRequest("id"), userController.remove);
-userRoutes.put("/:id", validateIdRequest("id"), userController.update);
 userRoutes.post("/login", userController.login);
 
-userRoutes.get("/comments/get-all", userController.getAllUserComments);
+userRoutes.get("/:id", validateIdRequest("id"), userController.getById);
+userRoutes.delete("/:id", validateIdRequest("id"), userController.remove);
+userRoutes.put("/:id", validateIdRequest("id"), userController.update);
+
 userRoutes.get(
   "/comments/get-comment-from-video/:videoId",
   validateIdRequest("videoId"),

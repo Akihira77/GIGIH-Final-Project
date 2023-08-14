@@ -7,14 +7,20 @@ const videoRoutes: Router = express();
 
 videoRoutes.get("/", videoController.getAll);
 videoRoutes.get("/thumbnails", videoController.getAllThumbnail);
+videoRoutes.get("/search/:searchText", videoController.searchVideos);
+videoRoutes.post("/", videoController.create);
+
 videoRoutes.get(
   "/thumbnails/:videoId",
   validatorIdRequest("videoId"),
   videoController.getThumbnailFromVideo
 );
-videoRoutes.get("/:videoId", videoController.getVideoById);
+videoRoutes.get(
+  "/:videoId",
+  validatorIdRequest("videoId"),
+  videoController.getVideoById
+);
 
-videoRoutes.post("/", videoController.create);
 videoRoutes.post(
   "/thumbnails/:videoId",
   validatorIdRequest("videoId"),

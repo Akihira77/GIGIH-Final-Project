@@ -1,0 +1,297 @@
+{
+	"info": {
+		"_postman_id": "db64c521-89c2-42b7-a6e8-1da811be6947",
+		"name": "Midterm - GIGIH",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "24368336"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{api_uri}}/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"username\" : \"dikawahyu@gmail.com\",\r\n\t\"password\": \"andikawahyu\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{api_uri}}/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{api_uri}}/users/64c1b838f15bb789cb62fac2"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{api_uri}}/users/64c1b838f15bb789cb62fac"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"password\" : \"andikawp100\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{api_uri}}/users/64be7cae5d51f3cbcd087fcb"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{api_uri}}/products"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"title\" : \"The Lord Of The Rings\",\r\n\t\"price\" : 25000,\r\n\t\"url\" : \"https://id.wikipedia.org/wiki/The_Lord_of_the_Rings\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{api_uri}}/products"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Product From Video",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{api_uri}}/products/get-product-list-by-videoId/64bf364a08d9633404fdd409"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All By UserId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{api_uri}}/products/get-products-by-user/64d59ac2e7dad508e3b5f473"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Comments",
+			"item": [
+				{
+					"name": "Get All Comment",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{api_uri}}/users/comments/get-all"
+					},
+					"response": []
+				},
+				{
+					"name": "Submit Comment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"username\" : \"andikawahyu@gmail.com\",\r\n\t\"comment\" : \"i like it\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{api_uri}}/user-comment/submit-comment/64bf364a08d9633404fdd409"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Comment From Video",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{api_uri}}/users/comments/get-comment-from-video/64bf364a08d9633404fdd409"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Videos",
+			"item": [
+				{
+					"name": "Get All Videos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{api_uri}}/videos"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Video",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"productId\" : \"64bf32340d4208f1c1f8d194\",\r\n\t\"url\" : \"https://en.wikipedia.org/wiki/The_Lord_of_the_Rings\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{api_uri}}/videos"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Video Thumbnail",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{api_uri}}/videos/thumbnails"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Thumbnail To Video",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/F:/File_Mahasiswa/File/pictures/nekos.png"
+								}
+							]
+						},
+						"url": "{{api_uri}}/videos/thumbnails/64bf364a08d9633404fdd409"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Thumbnail By VideoId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{api_uri}}/videos/thumbnails/64bf364a08d9633404fdd409"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Video By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{api_uri}}/videos/64d6e8ba1296d9d1e4cb3938"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Video By Thumbnail Name",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Seeding Data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "{{api_uri}}/seed-data"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api_uri",
+			"value": "http://localhost:1337/api",
+			"type": "string"
+		},
+		{
+			"key": "api_uri",
+			"value": "https://itchy-eel-school-uniform.cyclic.app/api",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}

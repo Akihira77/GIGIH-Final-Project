@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ProductListContainer = styled.div`
-  max-height: 100%;
+  max-height: 100vh;
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -38,7 +38,6 @@ export const MainVideoContainer = styled.div`
 `;
 
 export const VideoContainer = styled.div`
-  height: 100vh;
   .mid {
     display: flex;
     justify-content: center;
@@ -48,6 +47,7 @@ export const VideoContainer = styled.div`
 
 export const YourProfileContainer = styled.div`
   padding: 0.5rem 1rem;
+  height: 200px;
   .form {
     display: flex;
     flex-direction: column;
@@ -58,6 +58,8 @@ export const YourProfileContainer = styled.div`
 `;
 
 export const CommentListContainer = styled.div`
+  height: 500px;
+  border-bottom: 1px solid #b3b3b3;
   padding: 1rem 0.5rem;
   max-height: 100%;
   overflow: auto;
@@ -77,6 +79,7 @@ export const CommentListContainer = styled.div`
     float: left;
     border-radius: 5px;
     padding: 5px 10px;
+    color: white;
     &:nth-child(2n - 1) {
       border: 1px solid rgba(16, 46, 46, 1);
       background-color: rgba(16, 46, 46, 0.973);
@@ -99,4 +102,9 @@ export const CommentListContainer = styled.div`
   .darker span {
     color: rgb(184, 183, 183);
   }
+`;
+
+export const CommentSectionContainer = styled.div`
+  border-left: 1px solid #b3b3b3;
+  height: 100vh;
 `;

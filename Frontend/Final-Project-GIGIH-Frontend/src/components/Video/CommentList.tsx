@@ -1,36 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { CommentListContainer } from "./VideoStyled";
-import { getVideoComments } from "../../utils/fetchApi";
 
 type Props = {
-  videoId: string;
+  userComments: any[];
 };
 
-const CommentList = ({ videoId }: Props) => {
-  const [userComments, setUserComments] = useState([]);
+const CommentList = ({ userComments }: Props) => {
+  const bottomEl = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const getComments = async () => {
-      const { axiosResponse, error } = await getVideoComments(videoId);
-
-      // console.log(axiosResponse?.data.data);
-      setUserComments(axiosResponse?.data.data.userComments);
-    };
-
-    getComments();
-  }, [videoId]);
+    bottomEl.current?.scrollIntoView({ behavior: "smooth" });
+  });
   return (
     <CommentListContainer>
-      <h3>User Comment</h3>
-      {userComments &&
-        userComments.map(({ username, comment }, index) => {
+      <h3>Live Chat</h3>
+      {userComments.length > 0 &&
+        userComments.map(({ username, comment, time }, index) => {
           return (
             <div className="comment" key={index}>
               <h4>{username}</h4>
               <br />
               <p>{comment}</p>
+              <p>{time}</p>
             </div>
           );
         })}
+      <div ref={bottomEl}></div>
     </CommentListContainer>
   );
 };

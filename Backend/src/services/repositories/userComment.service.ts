@@ -8,8 +8,8 @@ class UserCommentService extends BaseService {
     return this._model.create(input);
   };
 
-  getAllByProductId = async (productId: string) => {
-    return this._model.find({ productId: productId });
+  getAllByVideoId = async (videoId: string) => {
+    return this._model.find({ videoId: videoId });
   };
 }
 

@@ -6,7 +6,6 @@ const commentMapping = async (data: any[]): Promise<UserCommentDTO[]> => {
       username: e.username,
       comment: e.comment,
       createdAt: e.createdAt,
-      updatedAt: e.updatedAt,
     };
   });
 

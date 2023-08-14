@@ -18,8 +18,8 @@ import {
 
 import { startSocket } from "./utils/socket.js";
 
-// const ENV = process.argv[2] == "prod" ? "prod" : "dev";
-const ENV = "prod";
+const ENV = process.env.ENV!;
+// const ENV = "prod";
 
 const startServer = () => {
   const app: Application = express();
@@ -41,9 +41,9 @@ const startServer = () => {
   );
 
   //! DEVELOPMENT
-  // if (ENV == "dev") {
-  //   app.use(morgan("dev"));
-  // }
+  if (ENV === "dev") {
+    app.use(morgan("dev"));
+  }
 
   //TODO Routes
   app.post("/api/seed-data", async (req, res) => {

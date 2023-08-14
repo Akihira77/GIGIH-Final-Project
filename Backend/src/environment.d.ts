@@ -8,7 +8,7 @@ declare global {
       SERVER_PORT: number;
       CLIENT_URL: string;
       CLIENT_PORT: string;
-      ENV: "test" | "dev" | "prod";
+      ENV: "dev" | "prod";
     }
   }
 }

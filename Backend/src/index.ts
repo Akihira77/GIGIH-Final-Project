@@ -23,7 +23,7 @@ const ENV = process.env.ENV!;
 
 const startServer = () => {
   const app: Application = express();
-  const PORT: number = Number(process.env.SERVER_PORT) || 1337;
+  const PORT: number = Number(process.env.PORT) || 1337;
   const corsOptions: CorsOptions = {
     // origin: [String(process.env.CLIENT_PORT), String(process.env.CLIENT_URL)],
     origin: "*",

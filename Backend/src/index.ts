@@ -25,7 +25,7 @@ const startServer = () => {
   const app: Application = express();
   const PORT: number = Number(process.env.SERVER_PORT);
   const corsOptions = {
-    origin: `http://localhost:5173`,
+    origin: [String(process.env.CLIENT_PORT), String(process.env.CLIENT_URL)],
     methods: ["get", "post"],
   };
   //TODO Middleware

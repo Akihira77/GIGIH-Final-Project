@@ -5,7 +5,7 @@ import Video from "./components/Video/Video";
 import io from "socket.io-client";
 import DrawerExample from "./components/Drawer/DrawerExample";
 
-const socket = io("http://localhost:1337");
+const socket = io(import.meta.env.VITE_WS_URL);
 
 function App() {
   window.localStorage.setItem("chakra-ui-color-mode", "dark");
@@ -13,6 +13,7 @@ function App() {
     <>
       {/* <RouterProvider router={}/> */}
       <Routes>
+        <Route path="/" element={<div></div>} />
         <Route path="/play" element={<NavbarContainer />}>
           <Route index element={<BodyContainer socket={socket} />} />
           <Route path="video" element={<BodyContainer socket={socket} />} />

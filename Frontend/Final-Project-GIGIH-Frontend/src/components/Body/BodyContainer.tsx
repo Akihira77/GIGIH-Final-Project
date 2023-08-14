@@ -16,6 +16,7 @@ const BodyContainer = ({ socket }: Props) => {
   useEffect(() => {
     if (room) {
       socket.emit("leave_room", room);
+
       window.sessionStorage.removeItem("room");
     }
     const getVid = async (text: string | null) => {

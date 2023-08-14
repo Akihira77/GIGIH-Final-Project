@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 export const connectMongoDB = async (env: string) => {
   const MONGO_URI =
-    env == "dev"
+    env == "prod"
       ? (process.env.MONGO_URI_DEV as string)
       : (process.env.MONGO_URI_PROD as string);
 

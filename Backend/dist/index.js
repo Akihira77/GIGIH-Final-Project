@@ -3,7 +3,6 @@ import "dotenv/config";
 import userRoutes from "./routes/user.routes.js";
 import videoRoutes from "./routes/video.routes.js";
 import productRoutes from "./routes/product.routes.js";
-import morgan from "morgan";
 import cors from "cors";
 import compression from "compression";
 import { connectMongoDB } from "./data/db.js";
@@ -17,6 +16,8 @@ const startServer = () => {
     const corsOptions = {
         origin: "*",
         methods: ["get", "post"],
+        allowedHeaders: "*",
+        optionsSuccessStatus: 200,
     };
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));
@@ -25,9 +26,6 @@ const startServer = () => {
     app.use(expressFileUpload({
         limits: { fileSize: 2 * 1024 * 1024 },
     }));
-    if (ENV == "dev") {
-        app.use(morgan("dev"));
-    }
     app.post("/api/seed-data", async (req, res) => {
         await SeedDataUser();
         await SeedDataProduct();

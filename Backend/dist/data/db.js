@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 export const connectMongoDB = async (env) => {
-    const MONGO_URI = env == "dev"
+    const MONGO_URI = env == "prod"
         ? process.env.MONGO_URI_DEV
         : process.env.MONGO_URI_PROD;
     try {

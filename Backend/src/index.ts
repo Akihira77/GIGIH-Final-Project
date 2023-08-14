@@ -27,9 +27,6 @@ const startServer = () => {
   const corsOptions: CorsOptions = {
     // origin: [String(process.env.CLIENT_PORT), String(process.env.CLIENT_URL)],
     origin: "*",
-    methods: ["get", "post"],
-    allowedHeaders: "*",
-    optionsSuccessStatus: 200,
   };
   //TODO Middleware
   //! PRODUCTION

@@ -15,9 +15,6 @@ const startServer = () => {
     const PORT = Number(process.env.SERVER_PORT);
     const corsOptions = {
         origin: "*",
-        methods: ["get", "post"],
-        allowedHeaders: "*",
-        optionsSuccessStatus: 200,
     };
     app.use(express.json());
     app.use(express.urlencoded({ extended: false }));

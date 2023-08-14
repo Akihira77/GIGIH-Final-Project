@@ -3,7 +3,7 @@ import "dotenv/config";
 import userRoutes from "./routes/user.routes.js";
 import videoRoutes from "./routes/video.routes.js";
 import productRoutes from "./routes/product.routes.js";
-import morgan from "morgan";
+// import morgan from "morgan";
 import cors, { CorsOptions } from "cors";
 import compression from "compression";
 import { connectMongoDB } from "./data/db.js";
@@ -23,7 +23,7 @@ const ENV = process.env.ENV!;
 
 const startServer = () => {
   const app: Application = express();
-  const PORT: number = Number(process.env.SERVER_PORT);
+  const PORT: number = Number(process.env.SERVER_PORT) || 1337;
   const corsOptions: CorsOptions = {
     // origin: [String(process.env.CLIENT_PORT), String(process.env.CLIENT_URL)],
     origin: "*",
@@ -41,9 +41,9 @@ const startServer = () => {
   );
 
   //! DEVELOPMENT
-  if (ENV === "dev") {
-    app.use(morgan("dev"));
-  }
+  // if (ENV === "dev") {
+  //   app.use(morgan("dev"));
+  // }
 
   //TODO Routes
   app.post("/api/seed-data", async (req, res) => {

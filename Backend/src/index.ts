@@ -25,7 +25,8 @@ const startServer = () => {
   const app: Application = express();
   const PORT: number = Number(process.env.SERVER_PORT);
   const corsOptions = {
-    origin: [String(process.env.CLIENT_PORT), String(process.env.CLIENT_URL)],
+    // origin: [String(process.env.CLIENT_PORT), String(process.env.CLIENT_URL)],
+    origin: "*",
     methods: ["get", "post"],
   };
   //TODO Middleware

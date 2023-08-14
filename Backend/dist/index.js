@@ -10,7 +10,7 @@ import { connectMongoDB } from "./data/db.js";
 import expressFileUpload from "express-fileupload";
 import { SeedDataComment, SeedDataProduct, SeedDataThumbnail, SeedDataUser, SeedDataVideo, } from "./seed.js";
 import { startSocket } from "./utils/socket.js";
-const ENV = process.argv[2] == "prod" ? "prod" : "dev";
+const ENV = "prod";
 const startServer = () => {
     const app = express();
     const PORT = Number(process.env.SERVER_PORT);

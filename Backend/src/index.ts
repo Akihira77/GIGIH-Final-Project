@@ -18,7 +18,8 @@ import {
 
 import { startSocket } from "./utils/socket.js";
 
-const ENV = process.argv[2] == "prod" ? "prod" : "dev";
+// const ENV = process.argv[2] == "prod" ? "prod" : "dev";
+const ENV = "prod";
 
 const startServer = () => {
   const app: Application = express();

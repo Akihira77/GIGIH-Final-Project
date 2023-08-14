@@ -10,11 +10,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.8.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "axios": "^1.4.0",
     "env-cmd": "^10.1.0",
+    "framer-motion": "^10.15.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "socket.io-client": "^4.7.2"
+    "react-icons": "^4.10.1",
+    "react-router-dom": "^6.15.0",
+    "socket.io-client": "^4.7.2",
+    "styled-components": "^6.0.7"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

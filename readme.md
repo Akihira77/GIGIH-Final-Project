@@ -1,5 +1,13 @@
 # Front End
 
+## Bonus Feature
+
+- Add User Profile Avatar and Username after login
+
+- Use socket.io to apply realtime comment
+
+- Add search video feature
+
 ## Folder Structure
 
 ```MD
@@ -46,7 +54,6 @@
  ┃ ┣ 📜App.tsx
  ┃ ┣ 📜main.tsx
  ┃ ┗ 📜vite-env.d.ts
- ┣ 📜.env
  ┣ 📜.eslintrc.cjs
  ┣ 📜.gitignore
  ┣ 📜index.html
@@ -66,6 +73,8 @@ In the terminal run
 ```
 npm install && npm run dev
 ```
+
+Open the `First Time` on the left side to see the instructions
 
 # Backend
 
@@ -107,7 +116,6 @@ npm install && npm run dev
 ┃ ┃ ┃ ┣ 📜video.service.js
 ┃ ┃ ┃ ┗ 📜videoThumbnail.service.js
 ┃ ┗ 📜index.js
-📜.env
 📜.gitignore
 📜package-lock.json
 📜package.json
@@ -124,8 +132,6 @@ Create .env file in the root project that need contains `MONGO_URI_DEV`, `PORT`,
 
 Import `Midterm - GIGIH.postman_collection.json` to your postman, insomnia, etc...  
 After that do the seeding data first and use `{{api_url}}` + /endpoint for every request in postman
-
-After that do the `seeding_data` first so data in
 
 you also need to open the MongoDB Compass or MongoDB extension in VSCode to use the `_id` for some object to work with the endpoint like `{ :id, :userId, :videoId }`
 

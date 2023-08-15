@@ -9,10 +9,10 @@ import { connectMongoDB } from "./data/db.js";
 import expressFileUpload from "express-fileupload";
 import { SeedDataComment, SeedDataProduct, SeedDataThumbnail, SeedDataUser, SeedDataVideo, } from "./seed.js";
 import { startSocket } from "./utils/socket.js";
-const ENV = "prod";
+const ENV = process.env.ENV;
 const startServer = () => {
     const app = express();
-    const PORT = Number(process.env.SERVER_PORT);
+    const PORT = Number(process.env.PORT) || 1337;
     const corsOptions = {
         origin: "*",
     };

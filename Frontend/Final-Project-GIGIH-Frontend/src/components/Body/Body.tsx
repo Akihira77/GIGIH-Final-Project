@@ -1,7 +1,7 @@
 import React from "react";
 import Thumbnail from "../Card/Thumbnail";
 import { Container } from "./BodyStyled";
-import { ThumbnailType } from "./types";
+import { ThumbnailType } from "../../types/types";
 
 type Props = {
   thumbnails: ThumbnailType[];

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { CommentListContainer } from "../VideoStyled";
-import { CommentsType } from "../types";
+import { CommentsType } from "../../../types/types";
 
 type Props = {
   userComments: CommentsType[];

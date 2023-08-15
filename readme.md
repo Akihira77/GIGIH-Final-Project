@@ -1,6 +1,16 @@
 # Front End
 
-## Bonus Feature
+## Feature
+
+- Login
+
+- See Video with thumbnails list
+
+- See/Go to video detail and see the related product from seller (user)
+
+- Play video from youtube
+
+**BONUS**
 
 - Add User Profile Avatar and Username after login
 

@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import CommentList from "./CommentList";
 import YourProfile from "./YourProfile";
 import { CommentSectionContainer } from "../VideoStyled";
-import { CommentDataSocket, CommentsType, MessageType } from "../types";
+import {
+  CommentDataSocket,
+  CommentsType,
+  MessageType,
+} from "../../../types/types";
 
 type Props = {
   userName: string;

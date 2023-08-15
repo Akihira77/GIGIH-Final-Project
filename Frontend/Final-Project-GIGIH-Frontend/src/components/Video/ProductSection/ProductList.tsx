@@ -1,6 +1,6 @@
 import { ProductListContainer } from "../VideoStyled";
 import { Card, CardBody, Image, Link } from "@chakra-ui/react";
-import { ProductType } from "../types";
+import { ProductType } from "../../../types/types";
 
 type Props = {
   products: ProductType[];

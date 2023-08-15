@@ -10,7 +10,7 @@ const convertTime = (createdAt: Date) => {
 };
 
 export const useJoinRoom = ({ room, socket }): CommentsType[] => {
-  const [comments, setComments] = useState<CommentsType[]>();
+  const [comments, setComments] = useState<CommentsType[]>([]);
   useEffect(() => {
     if (room !== "") {
       socket.emit("join_room", room);
@@ -35,5 +35,5 @@ export const useJoinRoom = ({ room, socket }): CommentsType[] => {
     }
   }, [room]);
 
-  return comments!;
+  return comments;
 };

@@ -11,9 +11,9 @@ const ProductList = ({ products }: Props) => {
     <ProductListContainer>
       <h3>Our Products</h3>
       {products &&
-        products.map(({ id, title, url, image }: ProductType) => {
+        products.map(({ title, url, image }: ProductType, index) => {
           return (
-            <Card maxW="sm" key={id}>
+            <Card maxW="sm" key={index}>
               <Link href={url}>
                 <CardBody padding="1rem">
                   <Image src={image} alt={title} borderRadius="lg" />

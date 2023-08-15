@@ -5,7 +5,6 @@ export type CommentsType = {
 };
 
 export type ProductType = {
-  id: string;
   title: string;
   url: string;
   image: string;

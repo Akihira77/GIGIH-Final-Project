@@ -1,5 +1,5 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProductList from "../ProductSection/ProductList";
 import MainVideo from "./MainVideo";
 import { VideoContainer } from "../VideoStyled";
@@ -19,9 +19,14 @@ const Video = ({ socket }: Props) => {
   const room = window.sessionStorage.getItem("room") ?? "";
   const videoId = window.location.href.split("video/")[1];
   const [userComments, setUserComments] = useState<CommentsType[]>([]);
+  const [urlVideo, setUrlVideo] = useState("");
 
-  setUserComments(useJoinRoom({ room, socket }));
   const { video, products } = useGetVideo({ videoId });
+  const result = useJoinRoom({ room, socket });
+  useEffect(() => {
+    setUrlVideo(video);
+    setUserComments(result);
+  }, [video, result]);
 
   return (
     <VideoContainer>
@@ -36,7 +41,7 @@ const Video = ({ socket }: Props) => {
           <ProductList products={products} />
         </GridItem>
         <GridItem area={"mid"} className="mid">
-          <MainVideo video={video} />
+          <MainVideo video={urlVideo} />
         </GridItem>
         <GridItem area={"right"}>
           <CommentSection

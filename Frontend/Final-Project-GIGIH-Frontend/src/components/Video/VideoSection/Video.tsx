@@ -7,11 +7,8 @@ import { VideoContainer } from "../VideoStyled";
 import { getCookie } from "../../../utils/cookie";
 import CommentSection from "../CommentSection/CommentSection";
 import { CommentsType } from "../../../types/types";
-import {
-  getUserProducts,
-  getVideoById,
-  getVideoComments,
-} from "../../../utils/fetchApi";
+import { useJoinRoom } from "../../../hooks/useJoinRoom";
+import { useGetVideo } from "../../../hooks/useGetVideo";
 
 type Props = {
   socket: any;
@@ -22,50 +19,14 @@ const Video = ({ socket }: Props) => {
   const room = window.sessionStorage.getItem("room") ?? "";
   const videoId = window.location.href.split("video/")[1];
   const [userComments, setUserComments] = useState<CommentsType[]>([]);
-  const [video, setVideo] = useState("");
-  const [products, setProducts] = useState([]);
+  const [urlVideo, setUrlVideo] = useState("");
 
-  const convertTime = (createdAt: Date) => {
-    const hours = new Date(createdAt).getHours();
-    const minutes = new Date(createdAt).getMinutes();
-
-    return hours + ":" + (minutes > 10 ? minutes : `0${minutes}`);
-  };
-
+  const { video, products } = useGetVideo({ videoId });
+  const result = useJoinRoom({ room, socket });
   useEffect(() => {
-    if (room !== "") {
-      socket.emit("join_room", room);
-      const getComments = async () => {
-        const { axiosResponse } = await getVideoComments(room);
-
-        const result: CommentsType[] =
-          axiosResponse?.data.data.userComments.map(
-            ({ username, comment, createdAt }) => {
-              return {
-                username: username,
-                comment: comment,
-                time: convertTime(createdAt),
-              };
-            }
-          );
-
-        setUserComments(result);
-      };
-
-      getComments();
-    }
-
-    const getVideoAndRelatedProduct = async () => {
-      const videoResult = await getVideoById(videoId);
-      const productResult = await getUserProducts(
-        videoResult.axiosResponse?.data.data.userId
-      );
-      setVideo(videoResult.axiosResponse?.data.data.url);
-      setProducts(productResult.axiosResponse?.data.data.products);
-    };
-
-    getVideoAndRelatedProduct();
-  }, [room, videoId]);
+    setUrlVideo(video);
+    setUserComments(result);
+  }, [video, result]);
 
   return (
     <VideoContainer>
@@ -80,7 +41,7 @@ const Video = ({ socket }: Props) => {
           <ProductList products={products} />
         </GridItem>
         <GridItem area={"mid"} className="mid">
-          <MainVideo video={video} />
+          <MainVideo video={urlVideo} />
         </GridItem>
         <GridItem area={"right"}>
           <CommentSection

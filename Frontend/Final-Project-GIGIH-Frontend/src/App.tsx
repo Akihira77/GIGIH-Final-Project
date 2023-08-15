@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import NavbarContainer from "./components/Navbar/NavbarContainer";
 import BodyContainer from "./components/Body/BodyContainer";
-import Video from "./components/Video/Video";
+import Video from "./components/Video/VideoSection/Video";
 import io from "socket.io-client";
 import DrawerExample from "./components/Drawer/DrawerExample";
 
@@ -11,7 +11,6 @@ function App() {
   window.localStorage.setItem("chakra-ui-color-mode", "dark");
   return (
     <>
-      {/* <RouterProvider router={}/> */}
       <Routes>
         <Route path="/" element={<div></div>} />
         <Route path="/play" element={<NavbarContainer />}>

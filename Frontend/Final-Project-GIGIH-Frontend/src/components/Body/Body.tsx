@@ -1,13 +1,13 @@
 import React from "react";
 import Thumbnail from "../Card/Thumbnail";
 import { Container } from "./BodyStyled";
+import { ThumbnailType } from "./types";
 
 type Props = {
-  thumbnails: any[];
+  thumbnails: ThumbnailType[];
 };
 
 const Body = ({ thumbnails }: Props) => {
-  // console.log(thumbnails);
   return (
     <Container>
       {thumbnails.map((thumbnail) => {

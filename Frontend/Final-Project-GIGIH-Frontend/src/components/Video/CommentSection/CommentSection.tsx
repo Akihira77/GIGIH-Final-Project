@@ -1,21 +1,15 @@
 import React, { useEffect, useState } from "react";
 import CommentList from "./CommentList";
 import YourProfile from "./YourProfile";
-import { CommentSectionContainer } from "./VideoStyled";
+import { CommentSectionContainer } from "../VideoStyled";
+import { CommentDataSocket, CommentsType, MessageType } from "../types";
 
 type Props = {
   userName: string;
   videoId: string;
   socket: any;
-  userComments: any[];
-  setUserComments: React.Dispatch<React.SetStateAction<any[]>>;
-};
-
-type MessageType = {
-  room: string;
-  username: string;
-  message: string;
-  time: string;
+  userComments: CommentsType[];
+  setUserComments: React.Dispatch<React.SetStateAction<CommentsType[]>>;
 };
 
 const CommentSection = ({
@@ -45,7 +39,7 @@ const CommentSection = ({
 
       setCommentText(null);
       await socket.emit("send_message", messageData);
-      setUserComments((prev: any) => [
+      setUserComments((prev: CommentsType[]) => [
         ...prev,
         {
           username: messageData.username,
@@ -57,9 +51,9 @@ const CommentSection = ({
   };
 
   useEffect(() => {
-    socket.on("receive_message", (data: any) => {
+    socket.on("receive_message", (data: CommentDataSocket) => {
       // console.log(data);
-      setUserComments((prev: any) => [
+      setUserComments((prev: CommentsType[]) => [
         ...prev,
         {
           username: data.username,

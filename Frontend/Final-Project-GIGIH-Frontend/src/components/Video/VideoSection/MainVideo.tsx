@@ -1,4 +1,4 @@
-import { MainVideoContainer } from "./VideoStyled";
+import { MainVideoContainer } from "../VideoStyled";
 
 type Props = {
   video: string;

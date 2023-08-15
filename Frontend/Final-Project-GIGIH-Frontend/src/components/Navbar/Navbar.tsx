@@ -24,7 +24,6 @@ import React from "react";
 import { Container } from "./NavbarStyled";
 import { FiSearch } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { get } from "../../utils/fetchApi";
 
 type Props = {
   isOpen: boolean;
@@ -33,7 +32,7 @@ type Props = {
   setUsername: React.Dispatch<React.SetStateAction<string>>;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   handleLogin: () => Promise<void>;
-  user: any;
+  user: string;
   handleLogout: () => void;
   searchText: string;
   setSearchText: React.Dispatch<React.SetStateAction<string>>;
@@ -102,7 +101,7 @@ const Navbar = ({
           {user ? (
             <Tag height="40px">
               <Avatar
-                name={user.username}
+                name={user}
                 src="https://static.vecteezy.com/system/resources/previews/002/002/403/original/man-with-beard-avatar-character-isolated-icon-free-vector.jpg"
                 width="35px"
                 height="35px"

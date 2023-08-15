@@ -245,7 +245,8 @@
 					"name": "Get Video By Thumbnail Name",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": "{{api_uri}}/videos/search/we"
 					},
 					"response": []
 				}
@@ -285,13 +286,13 @@
 		{
 			"key": "api_uri",
 			"value": "http://localhost:1337/api",
-			"type": "string"
+			"type": "string",
+			"disabled": true
 		},
 		{
 			"key": "api_uri",
-			"value": "https://itchy-eel-school-uniform.cyclic.app/api",
-			"type": "string",
-			"disabled": true
+			"value": "https://gigih-final-project-production.up.railway.app/api",
+			"type": "string"
 		}
 	]
 }

@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from "react";
-import { CommentListContainer } from "./VideoStyled";
+import { CommentListContainer } from "../VideoStyled";
+import { CommentsType } from "../types";
 
 type Props = {
-  userComments: any[];
+  userComments: CommentsType[];
 };
 
 const CommentList = ({ userComments }: Props) => {

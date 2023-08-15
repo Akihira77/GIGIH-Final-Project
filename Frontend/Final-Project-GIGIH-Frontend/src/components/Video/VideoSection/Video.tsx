@@ -1,15 +1,16 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import ProductList from "./ProductList";
+import ProductList from "../ProductSection/ProductList";
 import MainVideo from "./MainVideo";
-import { VideoContainer } from "./VideoStyled";
+import { VideoContainer } from "../VideoStyled";
 import {
   getUserProducts,
   getVideoById,
   getVideoComments,
-} from "../../utils/fetchApi";
-import { getCookie } from "../../utils/cookie";
-import CommentSection from "./CommentSection";
+} from "../../../utils/fetchApi";
+import { getCookie } from "../../../utils/cookie";
+import CommentSection from "../CommentSection/CommentSection";
+import { CommentsType } from "../types";
 
 type Props = {
   socket: any;
@@ -21,9 +22,9 @@ const Video = ({ socket }: Props) => {
   const videoId = window.location.href.split("video/")[1];
   const [video, setVideo] = useState("");
   const [products, setProducts] = useState([]);
-  const [userComments, setUserComments] = useState<any[]>([]);
+  const [userComments, setUserComments] = useState<CommentsType[]>([]);
 
-  const convertTime = (createdAt: any) => {
+  const convertTime = (createdAt: Date) => {
     const hours = new Date(createdAt).getHours();
     const minutes = new Date(createdAt).getMinutes();
 
@@ -36,15 +37,16 @@ const Video = ({ socket }: Props) => {
       const getComments = async () => {
         const { axiosResponse } = await getVideoComments(room);
 
-        const comments = axiosResponse?.data.data.userComments.map(
-          ({ username, comment, createdAt }) => {
-            return {
-              username: username,
-              comment: comment,
-              time: convertTime(createdAt),
-            };
-          }
-        );
+        const comments: CommentsType[] =
+          axiosResponse?.data.data.userComments.map(
+            ({ username, comment, createdAt }) => {
+              return {
+                username: username,
+                comment: comment,
+                time: convertTime(createdAt),
+              };
+            }
+          );
         setUserComments(comments);
       };
 

@@ -1,21 +1,12 @@
 import axios, { AxiosResponse } from "axios";
 import { API_URL } from "./constant";
+import { LoginType } from "./types";
 
 type ApiResponse = {
   axiosResponse: AxiosResponse<any, any> | null;
   error: string | null;
 };
 
-export const get = async (param: string) => {
-  const response = await axios.get(`http://localhost:1337/api/${param}`);
-
-  return response;
-};
-
-type LoginType = {
-  username: string;
-  password: string;
-};
 export const login = async ({
   username,
   password,
@@ -144,7 +135,7 @@ export const searchVideo = async (searchText: string): Promise<ApiResponse> => {
 
     return response;
   } catch (error) {
-    response.error = "Something has happend";
+    response.error = "Something has happened";
 
     return response;
   }

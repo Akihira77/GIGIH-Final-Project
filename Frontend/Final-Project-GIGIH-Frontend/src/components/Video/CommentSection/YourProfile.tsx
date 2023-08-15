@@ -1,5 +1,5 @@
 import React from "react";
-import { YourProfileContainer } from "./VideoStyled";
+import { YourProfileContainer } from "../VideoStyled";
 import { Button, FormControl, FormLabel, Textarea } from "@chakra-ui/react";
 
 type Props = {

@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Navbar from "./Navbar";
 import { useDisclosure, useToast } from "@chakra-ui/react";
-import { login, searchVideo } from "../../utils/fetchApi";
-import { useStateProvider } from "../../utils/StateProvider";
+import { login } from "../../utils/fetchApi";
 import { expiresOneHour } from "../../utils/constant";
 import { getCookie } from "../../utils/cookie";
 import { Outlet, useSearchParams } from "react-router-dom";

@@ -2,6 +2,71 @@
 
 ## Folder Structure
 
+```MD
+📦Final-Project-GIGIH-Frontend
+ ┣ 📂public
+ ┃ ┗ 📜vite.svg
+ ┣ 📂src
+ ┃ ┣ 📂components
+ ┃ ┃ ┣ 📂Body
+ ┃ ┃ ┃ ┣ 📜Body.tsx
+ ┃ ┃ ┃ ┣ 📜BodyContainer.tsx
+ ┃ ┃ ┃ ┣ 📜BodyStyled.ts
+ ┃ ┃ ┃ ┗ 📜types.d.ts
+ ┃ ┃ ┣ 📂Card
+ ┃ ┃ ┃ ┣ 📜Thumbnail.tsx
+ ┃ ┃ ┃ ┗ 📜ThumbnailStyled.ts
+ ┃ ┃ ┣ 📂Drawer
+ ┃ ┃ ┃ ┣ 📜DrawerExample.tsx
+ ┃ ┃ ┃ ┗ 📜DrawerExampleStyled.ts
+ ┃ ┃ ┣ 📂Navbar
+ ┃ ┃ ┃ ┣ 📜Navbar.tsx
+ ┃ ┃ ┃ ┣ 📜NavbarContainer.tsx
+ ┃ ┃ ┃ ┣ 📜NavbarStyled.ts
+ ┃ ┃ ┃ ┗ 📜types.d.ts
+ ┃ ┃ ┗ 📂Video
+ ┃ ┃ ┃ ┣ 📂CommentSection
+ ┃ ┃ ┃ ┃ ┣ 📜CommentList.tsx
+ ┃ ┃ ┃ ┃ ┣ 📜CommentSection.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜YourProfile.tsx
+ ┃ ┃ ┃ ┣ 📂ProductSection
+ ┃ ┃ ┃ ┃ ┗ 📜ProductList.tsx
+ ┃ ┃ ┃ ┣ 📂VideoSection
+ ┃ ┃ ┃ ┃ ┣ 📜MainVideo.tsx
+ ┃ ┃ ┃ ┃ ┗ 📜Video.tsx
+ ┃ ┃ ┃ ┣ 📜types.d.ts
+ ┃ ┃ ┃ ┗ 📜VideoStyled.ts
+ ┃ ┣ 📂utils
+ ┃ ┃ ┣ 📜constant.ts
+ ┃ ┃ ┣ 📜cookie.ts
+ ┃ ┃ ┣ 📜fetchApi.ts
+ ┃ ┃ ┣ 📜reducer.ts
+ ┃ ┃ ┣ 📜StateProvider.tsx
+ ┃ ┃ ┗ 📜types.d.ts
+ ┃ ┣ 📜App.tsx
+ ┃ ┣ 📜main.tsx
+ ┃ ┗ 📜vite-env.d.ts
+ ┣ 📜.env
+ ┣ 📜.eslintrc.cjs
+ ┣ 📜.gitignore
+ ┣ 📜index.html
+ ┣ 📜package-lock.json
+ ┣ 📜package.json
+ ┣ 📜tsconfig.json
+ ┣ 📜tsconfig.node.json
+ ┗ 📜vite.config.ts
+```
+
+## How To Run
+
+Create .env file in the root project that need contains `VITE_WS_URL` and `VITE_API_URL`
+
+In the terminal run
+
+```
+npm install && npm run dev
+```
+
 # Backend
 
 ## Folder Structure
@@ -55,16 +120,19 @@
 
 ## How To Run
 
+Create .env file in the root project that need contains `MONGO_URI_DEV`, `PORT`, `ENV`
+
 Import `Midterm - GIGIH.postman_collection.json` to your postman, insomnia, etc...  
 After that do the seeding data first and use `{{api_url}}` + /endpoint for every request in postman
 
-you also need to open the MongooDB Compass or MongoDB extension in VSCode to use the `_id` for some object to work with the endpoint like `{ :id, :videoId }`
+After that do the `seeding_data` first so data in
 
-in the command prompt run
+you also need to open the MongoDB Compass or MongoDB extension in VSCode to use the `_id` for some object to work with the endpoint like `{ :id, :userId, :videoId }`
+
+in the terminal run
 
 ```cli
-npm install
-npm run start
+npm install && npm run dev
 ```
 
 ## Seeding Data
@@ -111,7 +179,7 @@ Seeding data for User, Product, Video, User Comment, Video Thumbnail.
 
 ```TS
   username: string;
-  productId: mongoose.Schema.Types.ObjectId;
+  videoId: mongoose.Schema.Types.ObjectId;
   comment: string;
   CreatesdAt: Date;
   updatedAt: Date;
@@ -122,13 +190,12 @@ Seeding data for User, Product, Video, User Comment, Video Thumbnail.
 ```TS
 {
     username: string;
-    CreatesdAt: Date;
-    updatedAt: Date;
+    CreatedAt: Date;
     comment: string;
 }
 ```
 
-**GET /users**
+### **GET /users**
 
 ---
 
@@ -160,7 +227,7 @@ Returns all users in the system.
   - **Code:** 400  
     **Content:** `{ message: "Something has happened", error: error }`
 
-**GET /users/:id**
+### **GET /users/:id**
 
 ---
 
@@ -182,11 +249,11 @@ Returns the specified user.
   - **Code:** 400  
     **Content:** `{ message: "Something has happened", error: error }`
 
-**POST /users**
+### **POST /users/login**
 
 ---
 
-Createss a new User and returns the new object.
+Login.
 
 - **URL Params**  
   None
@@ -203,17 +270,16 @@ Createss a new User and returns the new object.
 
 - **Success Response:**
 
-  - **Code:** 201  
-    **Content:** `{ user: <user_object> }`
+  - **Code:** 200  
+    **Content:** `{ message:`welcome ${username}`}`
 
 - **Error Response:**
-  - **Code:** 400  
-    **Content:** `{ message: "User is already exists" }`  
-    OR
+  - **Code:** 404  
+    **Content:** `{ message: "User does not exists" }`
   - **Code:** 400  
     **Content:** `{ message: "Something has happened", error: error }`
 
-**DELETE /users/:id**
+### **DELETE /users/:id**
 
 ---
 
@@ -235,7 +301,7 @@ Delete the specified user.
   - **Code:** 400  
     **Content:** `{ message: "Something has happened", error: error }`
 
-**PUT /users/:id**
+### **PUT /users/:id**
 
 ---
 
@@ -273,7 +339,7 @@ Update the specified user.
   - **Code:** 400  
     **Content:** `{ message: "Something has happened", error: error }`
 
-**GET /users/comments/get-all**
+### **GET /users/comments/get-all**
 
 ---
 
@@ -305,7 +371,7 @@ Returns all users comment in the system.
   - **Code:** 400  
     **Content:** `{ message: "Something has happened", error: error }`
 
-**GET /users/comments/get-comment-from-video/:videoId**
+### **GET /users/comments/get-comment-from-video/:videoId**
 
 ---
 
@@ -340,7 +406,7 @@ returns users comment from the specified video.
   - **Code:** 400  
     **Content:** `{ message: "Something has happened", error: error }`
 
-**POST /users/comments/submit-comment/:videoId**
+### **POST /users/comments/submit-comment/:videoId**
 
 ---
 
@@ -365,9 +431,11 @@ Creates new user comment from a video and returns the new object.
     **Content:** `{ userComments: <user_comment_> }`
 
 - **Error Response:**
-  - **Code:** 400  
-    **Content:** `{ message: "User is already exists" }`  
+  - **Code:** 404  
+    **Content:** `{ message: "User does not exists" }`  
     OR
+  - **Code:** 404  
+    **Content:** `{message: "Video does not exists"}`
   - **Code:** 400  
     **Content:** `{ message: "Something has happened", error: error }`
 
@@ -381,7 +449,9 @@ Creates new user comment from a video and returns the new object.
   title: string;
   price: number;
   url: string;
-  CreatesdAt: Date;
+  image?: string;
+  userId: Schema.Types.ObjectId;
+  createdAt: Date;
   updatedAt: Date;
 }
 ```
@@ -390,9 +460,10 @@ Creates new user comment from a video and returns the new object.
 
 ```TS
 {
+    url: string;
     title: string;
     price: number;
-    url: string;
+    image?: string | undefined;
 }
 ```
 
@@ -400,10 +471,12 @@ Creates new user comment from a video and returns the new object.
 
 ```TS
 {
-    _id: product._id;
+    id?: any;
+    url: string;
     title: string;
     price: number;
-    url: string;
+    image?: string | undefined;
+    userId: Schema.Types.ObjectId;
 }
 ```
 
@@ -470,6 +543,39 @@ Returns all products for the specified video
   - **Code:** 404  
     **Content:** `{message: "Video does not exists" }`
 
+### **GET /products/get-products-by-user/:userId**
+
+Returns all products for the specified user
+
+- **URL Params**  
+  _Required:_ `userId=[string]`
+- **Headers**  
+  Content-Type: application/json
+- **Data Params**  
+  None
+- **Success Response:**
+  - **Code:** 200  
+    **Content:**
+
+```TS
+{
+  data: {
+    products : [
+      { <product_dto> }
+      { <product_dto> }
+      { <product_dto> }
+    ]
+  }
+}
+```
+
+- **Error Response:**
+  - **Code:** 400  
+    **Content:** `{ message: "Something has happened", error: error }`  
+    OR
+  - **Code:** 404  
+    **Content:** `{message: "User does not exists" }`
+
 ### **POST /products**
 
 Creates a new product and returns then new object
@@ -482,9 +588,11 @@ Creates a new product and returns then new object
 
 ```TS
 {
-    url: string;
     title: string;
     price: number;
+    url: string;
+    image?: string | undefined;
+    userId: Schema.Types.ObjectId;
 }
 ```
 
@@ -496,11 +604,7 @@ Creates a new product and returns then new object
 ```TS
 {
   data: {
-    product: {
-      url: string;
-      title: string;
-      price: number;
-    }
+    product: {<product_object>}
   }
 }
 ```
@@ -535,8 +639,9 @@ Creates a new product and returns then new object
 
 ```TS
 {
+  videoName: string;
   videoId: Schema.Types.ObjectId;
-  urlImage: string[];
+  urlImage: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -546,8 +651,21 @@ Creates a new product and returns then new object
 
 ```TS
 {
-    videoId: Schema.Types.ObjectId;
+    videoId: Schema.Types.ObjectId;videoName: string;
     urlImage: string[];
+}
+```
+
+- Video Thumbnail Product DTO
+
+```TS
+{
+  videoName: string;
+  thumbnailId: any;
+  videoId: any;
+  urlVideo: any;
+  user: string;
+  product: Omit<any, never> | undefined;
 }
 ```
 
@@ -581,12 +699,10 @@ Returns all videos in the system
   - **Code:** 400  
     **Content:** `{ message: "Something has happened", error : error }`
 
-### **GET /videos/thumbnails**
-
-Returns all thumbnail images from videos in the system
+Returns all thumbnail images from the specified video in the system
 
 - **URL Params**  
-  None
+  _Required:_ `videoId=[string]`
 - **Data Params**  
   None
 - **Headers**  
@@ -598,11 +714,66 @@ Returns all thumbnail images from videos in the system
 ```TS
 {
   data: {
-    thumbnails: [
-      { <video_thumbnail_dto> },
-      { <video_thumbnail_dto> },
-      { <video_thumbnail_dto> }
-    ]
+    thumbnails: {
+          <video_thumbnail_dto>
+        }
+  }
+}
+```
+
+- **Error Response:**
+  - **Code:** 400  
+    **Content:** `{ message: "Something has happened", error : error }`  
+    OR
+  - **Code:** 404  
+    **Content:** `{ message: "Video does not exists" }`
+
+### **GET /videos/:videoId**
+
+Returns video for the specified video
+
+- **URL Params**  
+  _Required:_ `videoId=[string]`
+- **Data Params**  
+  None
+- **Headers**  
+  Content-Type: application/json
+- **Success Response:**
+  - **Code:** 200  
+    **Content:**
+
+```TS
+{
+  data: {
+    productId
+    url,
+    userId,
+  }
+}
+```
+
+- **Error Response:**
+  - **Code:** 400  
+    **Content:** `{ message: "Something has happened", error : error }`
+
+### **GET /videos/search/:searchtext**
+
+Returns all videos that contains searchText on the video name
+
+- **URL Params**  
+  _Required:_ `searchText=[string]`
+- **Data Params**  
+  None
+- **Headers**  
+  Content-Type: application/json
+- **Success Response:**
+  - **Code:** 200  
+    **Content:**
+
+```TS
+{
+  data: {
+    <video_thumbnail_product_dto>
   }
 }
 ```
@@ -667,7 +838,7 @@ Creates a new Video and returns the new object.
 {
   data: {
     video: [
-      { <video_dto> },
+      { <video_object> },
     ]
   }
 }
@@ -675,8 +846,7 @@ Creates a new Video and returns the new object.
 
 ### **POST /videos/thumbnails/:videoId**
 
-Creates a new thumbnail image for the specified Video
-if the Video Thumbnail object for the specified Video already exists then add the thumbnail images in _urlImage_ array
+Creates a new thumbnail image for the specified Video it can be an url or file
 
 - **URL Params**  
   _Required:_ `videoId=[string]`
@@ -686,9 +856,12 @@ if the Video Thumbnail object for the specified Video already exists then add th
 
 ```TS
 {
-    urlImage: string;
+    urlImage: string | null;
 }
 ```
+
+OR  
+`file`
 
 - **Success Response:**
 
@@ -696,18 +869,14 @@ if the Video Thumbnail object for the specified Video already exists then add th
      **Content:** `{
   data: {
     thumbnail: [
-      { <video_thumbnail_dto> }
+      { <video_thumbnail_object> }
     ]
   }
 }`
 
-  OR
-
-  - **Code:** 200  
-     **Content:** `{
-  data: {
-    thumbnails: [
-      { <video_thumbnail_dto> }
-    ]
-  }
-}`
+- **Error Response:**
+  - **Code:** 400  
+    **Content:** `{ message: "Something has happened", error : error }`  
+    OR
+  - **Code:** 400  
+    **Content:** `{ message: "Image was not provided" }`

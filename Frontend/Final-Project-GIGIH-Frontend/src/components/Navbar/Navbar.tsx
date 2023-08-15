@@ -32,7 +32,7 @@ type Props = {
   setUsername: React.Dispatch<React.SetStateAction<string>>;
   setPassword: React.Dispatch<React.SetStateAction<string>>;
   handleLogin: () => Promise<void>;
-  user: string;
+  user: string | null;
   handleLogout: () => void;
   searchText: string;
   setSearchText: React.Dispatch<React.SetStateAction<string>>;

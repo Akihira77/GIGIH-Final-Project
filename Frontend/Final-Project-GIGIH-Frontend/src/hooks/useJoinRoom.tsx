@@ -35,5 +35,5 @@ export const useJoinRoom = ({ room, socket }): CommentsType[] => {
     }
   }, [room]);
 
-  return comments;
+  return comments!;
 };

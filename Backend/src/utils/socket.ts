@@ -10,11 +10,12 @@ export const startSocket = (server: any, corsOptions: any) => {
     // console.log(`User connected ${socket.id}`);
 
     socket.on("join_room", (room) => {
-      // socket.join(room);
+      socket.join(room);
       console.log(`User ${socket.id} joined room ${room}`);
     });
 
     socket.on("send_message", async (data) => {
+      console.log(`${socket.id} is comment ${data}`);
       const savedComments = await userCommentService.submitComment({
         videoId: data.room,
         username: data.username,
@@ -28,7 +29,7 @@ export const startSocket = (server: any, corsOptions: any) => {
 
     socket.on("leave_room", (room) => {
       socket.leave(room);
-      // console.log(`User ${socket.id} leave room ${room}`);
+      console.log(`User ${socket.id} leave room ${room}`);
     });
 
     socket.on("disconnect", () => {

@@ -67,6 +67,10 @@ export const getAllByVideoId = async (req, res) => {
 };
 export const getAllByUserId = async (req, res) => {
     try {
+        const user = await userService.getById(req.params.userId);
+        if (user == null) {
+            return res.status(404).send({ message: "User does not exists" });
+        }
         const products = await productService.getAllByUserId(req.params.userId);
         return res
             .status(200)

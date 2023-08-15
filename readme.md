@@ -24,14 +24,13 @@
 📦Final-Project-GIGIH-Frontend
  ┣ 📂public
  ┃ ┗ 📜vite.svg
- ┣ 📂src
+ ┣ 📦src
  ┃ ┣ 📂components
  ┃ ┃ ┣ 📂Body
  ┃ ┃ ┃ ┣ 📜Body.tsx
  ┃ ┃ ┃ ┣ 📜BodyContainer.tsx
- ┃ ┃ ┃ ┣ 📜BodyStyled.ts
- ┃ ┃ ┃ ┗ 📜types.d.ts
- ┃ ┃ ┣ 📂Card
+ ┃ ┃ ┃ ┗ 📜BodyStyled.ts
+ ┃ ┃ ┃ ┣ 📂Card
  ┃ ┃ ┃ ┣ 📜Thumbnail.tsx
  ┃ ┃ ┃ ┗ 📜ThumbnailStyled.ts
  ┃ ┃ ┣ 📂Drawer
@@ -40,8 +39,7 @@
  ┃ ┃ ┣ 📂Navbar
  ┃ ┃ ┃ ┣ 📜Navbar.tsx
  ┃ ┃ ┃ ┣ 📜NavbarContainer.tsx
- ┃ ┃ ┃ ┣ 📜NavbarStyled.ts
- ┃ ┃ ┃ ┗ 📜types.d.ts
+ ┃ ┃ ┃ ┗ 📜NavbarStyled.ts
  ┃ ┃ ┗ 📂Video
  ┃ ┃ ┃ ┣ 📂CommentSection
  ┃ ┃ ┃ ┃ ┣ 📜CommentList.tsx
@@ -52,9 +50,15 @@
  ┃ ┃ ┃ ┣ 📂VideoSection
  ┃ ┃ ┃ ┃ ┣ 📜MainVideo.tsx
  ┃ ┃ ┃ ┃ ┗ 📜Video.tsx
- ┃ ┃ ┃ ┣ 📜types.d.ts
  ┃ ┃ ┃ ┗ 📜VideoStyled.ts
- ┃ ┣ 📂utils
+ ┣ ┃ 📂hooks
+ ┃ ┃ ┣ 📜useGetLiveVideo.tsx
+ ┃ ┃ ┣ 📜useGetVideo.tsx
+ ┃ ┃ ┣ 📜useJoinRoom.tsx
+ ┃ ┃ ┗ 📜useLeaveRoom.tsx
+ ┣ ┃ 📂types
+ ┃ ┃ ┗ 📜types.d.ts
+ ┣ ┃ 📂utils
  ┃ ┃ ┣ 📜constant.ts
  ┃ ┃ ┣ 📜cookie.ts
  ┃ ┃ ┣ 📜fetchApi.ts
